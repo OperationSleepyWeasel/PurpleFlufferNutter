@@ -24,10 +24,20 @@ public class DummyContent {
     public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
     static {
-        // Add 3 sample items.
+        // Add 13 sample items.
         addItem(new DummyItem("1", "Item 1"));
         addItem(new DummyItem("2", "Item 2"));
         addItem(new DummyItem("3", "Item 3"));
+        addItem(new DummyItem("4", "Item 4"));
+        addItem(new DummyItem("5", "Item 5"));
+        addItem(new DummyItem("6", "Item 6"));
+        addItem(new DummyItem("7", "Item 7"));
+        addItem(new DummyItem("8", "Item 8"));
+        addItem(new DummyItem("9", "Item 9"));
+        addItem(new DummyItem("10", "Item 10"));
+        addItem(new DummyItem("11", "Item 11"));
+        addItem(new DummyItem("12", "Item 12"));
+        addItem(new DummyItem("13", "Item 13"));
     }
 
     private static void addItem(DummyItem item) {
