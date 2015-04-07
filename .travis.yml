@@ -2,4 +2,8 @@ language: android
 android:
   components:
     - android-24
+    - build-tools-19.0.0
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
 jdk: oraclejdk8
