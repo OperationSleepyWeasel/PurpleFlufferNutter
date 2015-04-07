@@ -1,10 +1,17 @@
 language: android
+jdk: oraclejdk8
+env:
+  matrix:
+    - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
 android:
   components:
-    - android-24
     - build-tools-L
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
     - sys-img-armeabi-v7a-android-19
-jdk: oraclejdk8
+before_script:
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - adb wait-for-device
+  - adb shell input keyevent 82 &
