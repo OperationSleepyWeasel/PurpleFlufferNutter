@@ -1,2 +1,5 @@
 language: android
+android:
+  components:
+    - android-24
 jdk: oraclejdk8
