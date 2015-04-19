@@ -2,6 +2,9 @@
 
 ## Mobile Movie Manager
 
+master: [![Build Status](https://travis-ci.org/OperationSleepyWeasel/PurpleFlufferNutter.svg?branch=master)](https://travis-ci.org/OperationSleepyWeasel/PurpleFlufferNutter)
+develop: [![Build Status](https://travis-ci.org/OperationSleepyWeasel/PurpleFlufferNutter.svg?branch=develop)](https://travis-ci.org/OperationSleepyWeasel/PurpleFlufferNutter)
+
 Simple application for browsing and managing your movie collection.
 
 **Overview:**
