@@ -44,7 +44,8 @@
             android:layout_height="wrap_content"
             android:text="Summary"
             android:id="@+id/summaryButton"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:onClick="goToSummary" />
 
         <Button
             android:layout_width="match_parent"
