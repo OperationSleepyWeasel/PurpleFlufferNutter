@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:text="List"
             android:id="@+id/listButton"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:onClick="@string/movie_list" />
 
         <Button
             android:layout_width="wrap_content"
