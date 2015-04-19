@@ -3,6 +3,7 @@ jdk: oraclejdk8
 branches:
   only:
     - master
+    - develop
 env:
   matrix:
     - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
@@ -18,3 +19,4 @@ before_script:
   - emulator -avd test -no-skin -no-audio -no-window &
   - adb wait-for-device
   - adb shell input keyevent 82 &
+script: ./gradlew build connectedCheck test --continue
