@@ -5,25 +5,26 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
+import android.widget.TextView;
 
 
-public class AddMovieActivity extends ActionBarActivity {
-
-    public static final String MOVIE_TITLE_ID = "movie_title_id";
+public class EditMovieActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_movie);
+        setContentView(R.layout.activity_edit_movie);
+
+        TextView text = (TextView) findViewById(R.id.editMovieValue);
+        Intent i = getIntent();
+        text.setText(i.getStringExtra(AddMovieActivity.MOVIE_TITLE_ID));
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_movie, menu);
+        getMenuInflater().inflate(R.menu.menu_edit_movie, menu);
         return true;
     }
 
@@ -40,11 +41,5 @@ public class AddMovieActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void goToEdit(View v) {
-        Intent i = new Intent(getApplicationContext(), EditMovieActivity.class);
-        i.putExtra(AddMovieActivity.MOVIE_TITLE_ID, ((EditText) findViewById(R.id.titleTextField)).getText().toString());
-        startActivity(i);
     }
 }

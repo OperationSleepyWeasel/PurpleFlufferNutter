@@ -48,6 +48,10 @@
             android:name=".AddMovieActivity"
             android:label="@string/title_activity_add_movie" >
         </activity>
+        <activity
+            android:name=".EditMovieActivity"
+            android:label="@string/title_activity_edit_movie" >
+        </activity>
     </application>
 
 </manifest>
