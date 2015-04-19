@@ -24,4 +24,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:support-v4:22.0.0'
     testCompile 'junit:junit:4.10'
+
+    //https://github.com/joel-costigliola/assertj-core/issues/345
+    testCompile 'org.assertj:assertj-core:1.4.0'
 }
