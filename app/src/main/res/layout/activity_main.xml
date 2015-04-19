@@ -37,7 +37,8 @@
             android:layout_height="wrap_content"
             android:text="Add movie"
             android:id="@+id/addButton"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:onClick="goToAddMovie" />
 
         <Button
             android:layout_width="match_parent"
