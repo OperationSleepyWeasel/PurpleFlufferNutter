@@ -37,6 +37,8 @@ public class EditMovieActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(i);
             return true;
         }
 
