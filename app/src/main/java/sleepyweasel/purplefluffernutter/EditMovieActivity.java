@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 
@@ -37,9 +38,21 @@ public class EditMovieActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(i);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToList(View v) {
+        Intent i = new Intent(getApplicationContext(), MovieListActivity.class);
+        startActivity(i);
+    }
+
+    public void goToDetail(View v) {
+        Intent i = new Intent(getApplicationContext(), MovieDetailActivity.class);
+        startActivity(i);
     }
 }
