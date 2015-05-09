@@ -10,4 +10,5 @@
     <string name="title_activity_summary">SummaryActivity</string>
     <string name="title_activity_add_movie">AddMovieActivity</string>
     <string name="title_activity_edit_movie">EditMovieActivity</string>
+    <string name="action_edit_movie">Edit movie</string>
 </resources>

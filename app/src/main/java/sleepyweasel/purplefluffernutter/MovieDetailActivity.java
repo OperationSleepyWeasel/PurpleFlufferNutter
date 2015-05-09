@@ -76,6 +76,11 @@ public class MovieDetailActivity extends ActionBarActivity {
             startActivity(i);
             return true;
         }
+        if (id == R.id.action_edit_movie) {
+            Intent i = new Intent(getApplicationContext(), EditMovieActivity.class);
+            startActivity(i);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }
