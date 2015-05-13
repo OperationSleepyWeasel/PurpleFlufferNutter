@@ -1,18 +1,25 @@
 package sleepyweasel.purplefluffernutter.dummy.retrofit;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class Result {
-    Integer id;
-    String title;
-    String original_title;
-    String release_date;
+    private Integer id;
+    private String title;
+    private String original_title;
+    private String release_date;
 
-    Double popularity;
-    Long vote_count;
-    Double vote_average;
+    private Double popularity;
+    private Long vote_count;
+    private Double vote_average;
 
-    String backdrop_path;
-    String poster_path;
+    private String backdrop_path;
+    private String poster_path;
 
-    boolean adult;
-    boolean video;
+    private boolean adult;
+    private boolean video;
 }

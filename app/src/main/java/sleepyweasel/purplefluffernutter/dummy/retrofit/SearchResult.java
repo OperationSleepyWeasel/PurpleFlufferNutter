@@ -2,10 +2,15 @@ package sleepyweasel.purplefluffernutter.dummy.retrofit;
 
 import java.util.List;
 
-public class SearchResult {
-    public Integer page;
-    public Integer total_pages;
-    public Integer total_results;
+import lombok.Getter;
+import lombok.Setter;
 
-    public List<Result> results;
+@Getter
+@Setter
+public class SearchResult {
+    private Integer page;
+    private Integer total_pages;
+    private Integer total_results;
+
+    private List<Result> results;
 }

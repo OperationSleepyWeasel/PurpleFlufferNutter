@@ -17,10 +17,10 @@ public class TmdbApiaryClient {
     }
 
     private static void printSearchResult(SearchResult searchResult) {
-        System.out.println("Found " + searchResult.total_pages + " page(s) with " + searchResult.total_results + " result(s) total.");
-        System.out.println("Listing results from page: " + searchResult.page + ".");
-        for (Result result : searchResult.results) {
-            System.out.println(result.title + " (" + result.id + ")");
+        System.out.println("Found " + searchResult.getTotal_pages() + " page(s) with " + searchResult.getTotal_results() + " result(s) total.");
+        System.out.println("Listing results from page: " + searchResult.getPage() + ".");
+        for (Result result : searchResult.getResults()) {
+            System.out.println(result);
         }
     }
 }
