@@ -26,6 +26,8 @@ dependencies {
 
     compile 'com.squareup.retrofit:retrofit:1.9.0'
 
+    provided "org.projectlombok:lombok:1.12.6"
+
     testCompile 'junit:junit:4.10'
 
     //https://github.com/joel-costigliola/assertj-core/issues/345
