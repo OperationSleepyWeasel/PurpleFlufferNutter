@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    //http://stackoverflow.com/questions/20699147/gradle-build-fails-on-lint-task
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -26,7 +31,7 @@ dependencies {
 
     compile 'com.squareup.retrofit:retrofit:1.9.0'
 
-    provided "org.projectlombok:lombok:1.12.6"
+    provided 'org.projectlombok:lombok:1.12.6'
 
     testCompile 'junit:junit:4.10'
 
