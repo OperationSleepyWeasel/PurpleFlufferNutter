@@ -3,11 +3,14 @@ package sleepyweasel.purplefluffernutter;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AddMovieActivity extends ActionBarActivity {
 
@@ -17,6 +20,7 @@ public class AddMovieActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_movie);
+        ButterKnife.inject(this);
     }
 
 
@@ -48,5 +52,11 @@ public class AddMovieActivity extends ActionBarActivity {
         Intent i = new Intent(getApplicationContext(), EditMovieActivity.class);
         i.putExtra(AddMovieActivity.MOVIE_TITLE_ID, ((EditText) findViewById(R.id.titleTextField)).getText().toString());
         startActivity(i);
+    }
+
+    @OnClick(R.id.webButton)
+    @SuppressWarnings("unused")
+    public void findOnWeb() {
+        Log.d("Debug : ", "findOnWeb");
     }
 }
