@@ -10,6 +10,7 @@ public class ContentProviderTest {
     @Test
     public void shouldCreateEmptyContentProvider() throws Exception {
         MovieContentProvider contentProvider = new MovieContentProvider();
-
+        
+        assertTrue(contentProvider.isEmpty());
     }
 }
