@@ -19,4 +19,8 @@ public class MovieContentProvider {
     public int size() {
         return size;
     }
+
+    public MovieEntry getEntry(int i) {
+        return new MovieEntry("title");
+    }
 }

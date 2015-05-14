@@ -9,16 +9,18 @@ public class ContentProviderTest {
 
     private MovieContentProvider contentProvider = new MovieContentProvider();
 
+    private static final String MOVIE_TITLE = "title";
+
     @Test
     public void shouldCreateEmptyContentProvider() throws Exception {
-        assertTrue(contentProvider.isEmpty());
+        assertThat(contentProvider.isEmpty()).isTrue();
     }
 
     @Test
     public void shouldAddMovieEntryToContentProvider() throws Exception {
-        contentProvider.addMovie(new MovieEntry("title"));
+        contentProvider.addMovie(new MovieEntry(MOVIE_TITLE));
 
-        assertFalse(contentProvider.isEmpty());
+        assertThat(contentProvider.isEmpty()).isFalse();
     }
 
     @Test
@@ -28,9 +30,18 @@ public class ContentProviderTest {
 
     @Test
     public void shouldReturnSizeTwoForContentProviderWithTwoMovies() throws Exception {
-        contentProvider.addMovie(new MovieEntry("title"));
-        contentProvider.addMovie(new MovieEntry("title"));
+        contentProvider.addMovie(new MovieEntry(MOVIE_TITLE));
+        contentProvider.addMovie(new MovieEntry(MOVIE_TITLE));
 
         assertThat(contentProvider.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void shouldGetMovieEntryById() throws Exception {
+        contentProvider.addMovie(new MovieEntry(MOVIE_TITLE));
+
+        MovieEntry entry = contentProvider.getEntry(0);
+
+        assertThat(entry.title).isEqualTo(MOVIE_TITLE);
     }
 }

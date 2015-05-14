@@ -21,7 +21,7 @@ public class MovieListTest {
         MovieListFragment movieListFragment = (MovieListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.movie_list);
         ListAdapter adapter = movieListFragment.getListAdapter();
 
-        assertTrue(adapter.isEmpty());
+        assertThat(adapter.isEmpty()).isTrue();
     }
 
 //    @Test
