@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
+import java.util.ArrayList;
+
 import sleepyweasel.purplefluffernutter.dummy.DummyContent;
 
 /**
@@ -72,11 +74,9 @@ public class MovieListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         // TODO: replace with a real list adapter.
-//        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
-//                getActivity(),
-//                android.R.layout.simple_list_item_activated_1,
-//                android.R.id.text1,
-//                DummyContent.ITEMS));
+        ArrayList<String> arrayList = new ArrayList<>();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, arrayList);
+        setListAdapter(adapter);
     }
 
     @Override

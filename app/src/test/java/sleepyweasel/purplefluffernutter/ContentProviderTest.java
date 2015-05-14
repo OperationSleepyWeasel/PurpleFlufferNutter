@@ -1,5 +1,6 @@
 package sleepyweasel.purplefluffernutter;
 
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 
 import org.junit.Test;
@@ -22,6 +23,17 @@ public class ContentProviderTest {
         ListAdapter adapter = movieListFragment.getListAdapter();
 
         assertTrue(adapter.isEmpty());
+    }
+
+    @Test
+    public void shouldNotBeEmptyWhenNewItemAdded() throws Exception {
+        MovieListActivity activity = Robolectric.setupActivity(MovieListActivity.class);
+        MovieListFragment movieListFragment = (MovieListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.movie_list);
+        ArrayAdapter adapter = (ArrayAdapter) movieListFragment.getListAdapter();
+
+        adapter.add("title");
+
+        assertFalse(adapter.isEmpty());
     }
 
 //    @Test
