@@ -2,21 +2,21 @@ package sleepyweasel.purplefluffernutter;
 
 public class MovieContentProvider {
 
-    private boolean hasMovie;
+    private int size;
 
     public MovieContentProvider() {
-        hasMovie = false;
+        size = 0;
     }
 
     public boolean isEmpty() {
-        return !hasMovie;
+        return size == 0;
     }
 
     public void addMovie(MovieEntry title) {
-        hasMovie = true;
+        size++;
     }
 
     public int size() {
-        return 0;
+        return size;
     }
 }

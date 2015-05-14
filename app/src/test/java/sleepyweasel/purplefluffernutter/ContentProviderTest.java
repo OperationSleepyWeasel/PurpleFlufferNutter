@@ -7,16 +7,15 @@ import static org.junit.Assert.*;
 
 public class ContentProviderTest {
 
+    private MovieContentProvider contentProvider = new MovieContentProvider();
+
     @Test
     public void shouldCreateEmptyContentProvider() throws Exception {
-        MovieContentProvider contentProvider = new MovieContentProvider();
-
         assertTrue(contentProvider.isEmpty());
     }
 
     @Test
     public void shouldAddMovieEntryToContentProvider() throws Exception {
-        MovieContentProvider contentProvider = new MovieContentProvider();
         contentProvider.addMovie(new MovieEntry("title"));
 
         assertFalse(contentProvider.isEmpty());
@@ -24,8 +23,14 @@ public class ContentProviderTest {
 
     @Test
     public void shouldReturnSizeZeroIfContentProviderEmpty() throws Exception {
-        MovieContentProvider contentProvider = new MovieContentProvider();
-
         assertThat(contentProvider.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void shouldReturnSizeTwoForContentProviderWithTwoMovies() throws Exception {
+        contentProvider.addMovie(new MovieEntry("title"));
+        contentProvider.addMovie(new MovieEntry("title"));
+
+        assertThat(contentProvider.size()).isEqualTo(2);
     }
 }
