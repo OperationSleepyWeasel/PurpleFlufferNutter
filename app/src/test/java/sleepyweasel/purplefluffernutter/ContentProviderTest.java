@@ -21,4 +21,11 @@ public class ContentProviderTest {
 
         assertFalse(contentProvider.isEmpty());
     }
+
+    @Test
+    public void shouldReturnSizeZeroIfContentProviderEmpty() throws Exception {
+        MovieContentProvider contentProvider = new MovieContentProvider();
+
+        assertThat(contentProvider.size()).isEqualTo(0);
+    }
 }

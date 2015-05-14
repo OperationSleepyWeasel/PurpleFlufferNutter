@@ -15,4 +15,8 @@ public class MovieContentProvider {
     public void addMovie(MovieEntry title) {
         hasMovie = true;
     }
+
+    public int size() {
+        return 0;
+    }
 }
