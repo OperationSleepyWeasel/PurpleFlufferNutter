@@ -1,5 +1,7 @@
 package sleepyweasel.purplefluffernutter;
 
+import android.widget.ListAdapter;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -17,10 +19,9 @@ public class ContentProviderTest {
     public void shouldBeEmptyWhenNoMoviesOnList() throws Exception {
         MovieListActivity activity = Robolectric.setupActivity(MovieListActivity.class);
         MovieListFragment movieListFragment = (MovieListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.movie_list);
-        int itemPosition = 0;
-        String title = movieListFragment.getListAdapter().getItem(itemPosition).toString();
+        ListAdapter adapter = movieListFragment.getListAdapter();
 
-        assertThat(title).isEqualTo("");
+        assertTrue(adapter.isEmpty());
     }
 
 //    @Test
