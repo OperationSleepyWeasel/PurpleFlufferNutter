@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 public class SearchResult {
     private Integer page;
-    private Integer total_pages;
-    private Integer total_results;
+    private Integer totalPages;
+    private Integer totalResults;
 
     private List<Result> results;
 }
