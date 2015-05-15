@@ -1,26 +1,34 @@
 package sleepyweasel.purplefluffernutter;
 
+import java.util.HashMap;
+
 public class MovieContentProvider {
 
     private int size;
 
+    private int nextId;
+
+    private HashMap<Integer,MovieEntry> movieList;
+
     public MovieContentProvider() {
-        size = 0;
+        movieList = new HashMap<>();
+        nextId = 0;
     }
 
     public boolean isEmpty() {
-        return size == 0;
+        return movieList.isEmpty();
     }
 
-    public void addMovie(MovieEntry title) {
-        size++;
+    public void addMovie(MovieEntry entry) {
+        movieList.put(nextId, entry);
+        nextId++;
     }
 
     public int size() {
-        return size;
+        return movieList.size();
     }
 
-    public MovieEntry getEntry(int i) {
-        return new MovieEntry("title");
+    public MovieEntry getEntry(int id) {
+        return movieList.get(id);
     }
 }

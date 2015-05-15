@@ -1,9 +1,14 @@
 package sleepyweasel.purplefluffernutter;
 
 public class MovieEntry {
-    public String title;
+
+    private String title;
 
     public MovieEntry(String title) {
         this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }
