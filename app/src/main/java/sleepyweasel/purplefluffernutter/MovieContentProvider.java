@@ -8,10 +8,10 @@ public class MovieContentProvider {
 
     private int nextId;
 
-    private HashMap<Integer,MovieEntry> movieList;
+    private HashMap<Integer,MovieEntry> movies;
 
     private MovieContentProvider() {
-        movieList = new HashMap<>();
+        movies = new HashMap<>();
         nextId = 0;
     }
 
@@ -20,24 +20,24 @@ public class MovieContentProvider {
     }
 
     public boolean isEmpty() {
-        return movieList.isEmpty();
+        return movies.isEmpty();
     }
 
     public void addMovie(MovieEntry entry) {
-        movieList.put(nextId, entry);
+        movies.put(nextId, entry);
         nextId++;
     }
 
     public int size() {
-        return movieList.size();
+        return movies.size();
     }
 
     public MovieEntry getEntry(int id) {
-        return movieList.get(id);
+        return movies.get(id);
     }
 
     public MovieEntry getEntryByTitle(String movieTitle) {
-        for (Map.Entry<Integer,MovieEntry> entry : movieList.entrySet()) {
+        for (Map.Entry<Integer,MovieEntry> entry : movies.entrySet()) {
             MovieEntry movie = entry.getValue();
             if (movie.getTitle().equals(movieTitle))
                 return movie;
@@ -46,13 +46,13 @@ public class MovieContentProvider {
     }
 
     public void clear() {
-        movieList.clear();
+        movies.clear();
         nextId = 0;
     }
 
     public ArrayList<String> getArrayList() {
         ArrayList<String> arrayList = new ArrayList<>();
-        for (MovieEntry movie : movieList.values()) {
+        for (MovieEntry movie : movies.values()) {
             arrayList.add(movie.toString());
         }
         return arrayList;
