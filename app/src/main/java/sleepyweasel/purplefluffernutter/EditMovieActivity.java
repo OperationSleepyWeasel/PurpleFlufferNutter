@@ -8,17 +8,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+
 
 public class EditMovieActivity extends ActionBarActivity {
+
+    @InjectView(R.id.movie_title_value) TextView titleText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_movie);
+        ButterKnife.inject(this);
 
-        TextView text = (TextView) findViewById(R.id.editMovieValue);
         Intent i = getIntent();
-        text.setText(i.getStringExtra(AddMovieActivity.MOVIE_TITLE_ID));
+        titleText.setText(i.getStringExtra(AddMovieActivity.MOVIE_TITLE_ID));
     }
 
 
@@ -51,7 +57,20 @@ public class EditMovieActivity extends ActionBarActivity {
         startActivity(i);
     }
 
-    public void goToDetail(View v) {
+    @OnClick(R.id.button_save)
+    @SuppressWarnings("unused")
+    public void onClickSaveButton(View v) {
+        addNewMovieToContentProvider();
+        goToDetail();
+    }
+
+    public void addNewMovieToContentProvider() {
+        String movieTitle = titleText.getText().toString();
+        MovieEntry movieEntry = new MovieEntry(movieTitle);
+        MovieContentProvider.getInstance().addMovie(movieEntry);
+    }
+
+    public void goToDetail() {
         Intent i = new Intent(getApplicationContext(), MovieDetailActivity.class);
         startActivity(i);
     }
