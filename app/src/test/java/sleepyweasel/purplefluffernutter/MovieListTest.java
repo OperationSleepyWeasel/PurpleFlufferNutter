@@ -18,7 +18,7 @@ public class MovieListTest {
 
     private MovieContentProvider contentProvider;
 
-    private final String MOVIE_TITLE = "Movie title";
+    private static final String MOVIE_TITLE = "Movie title";
 
     @Before
     public void setUp() {

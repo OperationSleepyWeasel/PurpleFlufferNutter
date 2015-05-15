@@ -50,10 +50,10 @@ public class MovieContentProvider {
         nextId = 0;
     }
 
-    public ArrayList<String> getArrayList() {
+    public ArrayList<String> getMovieTitles() {
         ArrayList<String> arrayList = new ArrayList<>();
         for (MovieEntry movie : movies.values()) {
-            arrayList.add(movie.toString());
+            arrayList.add(movie.getTitle());
         }
         return arrayList;
     }

@@ -66,8 +66,7 @@
                 android:layout_height="wrap_content"
                 android:text="Save"
                 android:id="@+id/button_save"
-                android:layout_weight="1"
-                android:onClick="onClickSaveButton" />
+                android:layout_weight="1" />
         </LinearLayout>
 
     </LinearLayout>
