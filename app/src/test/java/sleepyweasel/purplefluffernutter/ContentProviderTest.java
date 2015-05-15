@@ -1,5 +1,6 @@
 package sleepyweasel.purplefluffernutter;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -7,13 +8,18 @@ import static org.junit.Assert.*;
 
 public class ContentProviderTest {
 
-    private MovieContentProvider contentProvider = new MovieContentProvider();
+    private MovieContentProvider contentProvider = MovieContentProvider.getInstance();
 
     private static final String MOVIE_TITLE_1 = "title 1";
     private static final String MOVIE_TITLE_2 = "title 2";
 
     private MovieEntry firstEntry = new MovieEntry(MOVIE_TITLE_1);
     private MovieEntry secondEntry = new MovieEntry(MOVIE_TITLE_2);
+
+    @Before
+    public void setUp() throws Exception {
+        contentProvider.clear();
+    }
 
     @Test
     public void shouldCreateEmptyContentProvider() throws Exception {
@@ -25,6 +31,15 @@ public class ContentProviderTest {
         contentProvider.addMovie(firstEntry);
 
         assertThat(contentProvider.isEmpty()).isFalse();
+    }
+
+    @Test
+    public void shouldClearContentProvider() throws Exception {
+        contentProvider.addMovie(secondEntry);
+
+        contentProvider.clear();
+
+        assertThat(contentProvider.isEmpty()).isTrue();
     }
 
     @Test
@@ -76,5 +91,15 @@ public class ContentProviderTest {
         MovieEntry entry = contentProvider.getEntryByTitle("another title");
 
         assertThat(entry).isNull();
+    }
+
+    @Test
+    public void shouldGetOnlyOneContentProviderInstance() throws Exception {
+        contentProvider.addMovie(firstEntry);
+
+        MovieContentProvider anotherContentProvider = MovieContentProvider.getInstance();
+
+        MovieEntry entry = anotherContentProvider.getEntryByTitle(firstEntry.getTitle());
+        assertThat(entry).isEqualTo(firstEntry);
     }
 }

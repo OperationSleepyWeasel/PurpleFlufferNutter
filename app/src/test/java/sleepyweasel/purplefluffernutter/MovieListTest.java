@@ -15,24 +15,23 @@ import static org.junit.Assert.*;
 @Config(constants = BuildConfig.class)
 public class MovieListTest {
 
+    private MovieListActivity activity = Robolectric.setupActivity(MovieListActivity.class);
+
+    private MovieListFragment movieListFragment = (MovieListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.movie_list);
+
+    private ListAdapter adapter = movieListFragment.getListAdapter();
+
     @Test
     public void shouldBeEmptyWhenNoMoviesOnList() throws Exception {
-        MovieListActivity activity = Robolectric.setupActivity(MovieListActivity.class);
-        MovieListFragment movieListFragment = (MovieListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.movie_list);
-        ListAdapter adapter = movieListFragment.getListAdapter();
-
         assertThat(adapter.isEmpty()).isTrue();
     }
 
-//    @Test
-//    public void shouldNotBeEmptyWhenNewItemAdded() throws Exception {
-//        MovieListActivity activity = Robolectric.setupActivity(MovieListActivity.class);
-//        MovieListFragment movieListFragment = (MovieListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.movie_list);
-//        ArrayAdapter adapter = (ArrayAdapter) movieListFragment.getListAdapter();
-//        MovieContentProvider contentProvider = new MovieContentProvider();
-//
-//        adapter.add("title");
-//
-//        assertFalse(adapter.isEmpty());
-//    }
+    @Test
+    public void shouldNotBeEmptyWhenNewItemAdded() throws Exception {
+        MovieContentProvider contentProvider = MovieContentProvider.getInstance();
+
+        contentProvider.addMovie(new MovieEntry("Movie title"));
+
+        assertThat(adapter.isEmpty()).isFalse();
+    }
 }

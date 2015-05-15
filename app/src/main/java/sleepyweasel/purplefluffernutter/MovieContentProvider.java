@@ -9,9 +9,13 @@ public class MovieContentProvider {
 
     private HashMap<Integer,MovieEntry> movieList;
 
-    public MovieContentProvider() {
+    private MovieContentProvider() {
         movieList = new HashMap<>();
         nextId = 0;
+    }
+
+    public static MovieContentProvider getInstance() {
+        return MovieContentProviderHolder.instance;
     }
 
     public boolean isEmpty() {
@@ -38,5 +42,14 @@ public class MovieContentProvider {
                 return movie;
         }
         return null;
+    }
+
+    public void clear() {
+        movieList.clear();
+        nextId = 0;
+    }
+
+    private static class MovieContentProviderHolder {
+        private final static MovieContentProvider instance = new MovieContentProvider();
     }
 }
