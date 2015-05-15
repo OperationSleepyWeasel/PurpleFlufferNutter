@@ -6,12 +6,8 @@ import lombok.ToString;
 
 @Getter
 @ToString
-//@AllArgsConstructor
-public class MovieEntry {
+@AllArgsConstructor(suppressConstructorProperties = true)
+class MovieEntry {
 
     private String title;
-
-    MovieEntry(String title) {
-        this.title = title;
-    }
 }
