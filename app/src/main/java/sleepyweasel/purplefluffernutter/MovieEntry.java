@@ -5,9 +5,12 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString
 @AllArgsConstructor(suppressConstructorProperties = true)
 class MovieEntry {
 
     private String title;
+
+    public String toString() {
+        return title;
+    }
 }

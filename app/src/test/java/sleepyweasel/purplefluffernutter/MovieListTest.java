@@ -18,6 +18,8 @@ public class MovieListTest {
 
     private MovieContentProvider contentProvider;
 
+    private final String MOVIE_TITLE = "Movie title";
+
     @Before
     public void setUp() {
         contentProvider = MovieContentProvider.getInstance();
@@ -38,9 +40,19 @@ public class MovieListTest {
 
     @Test
     public void shouldNotBeEmptyWhenNewItemAdded() throws Exception {
-        contentProvider.addMovie(new MovieEntry("Movie title"));
+        contentProvider.addMovie(new MovieEntry(MOVIE_TITLE));
 
         ListAdapter adapter = getListAdapter();
         assertThat(adapter.isEmpty()).isFalse();
+    }
+
+    @Test
+    public void shouldDisplayMovieTitleAsListElementLabel() throws Exception {
+        contentProvider.addMovie(new MovieEntry(MOVIE_TITLE));
+
+        ListAdapter adapter = getListAdapter();
+        String label = adapter.getItem(0).toString();
+
+        assertThat(label).isEqualTo(MOVIE_TITLE);
     }
 }

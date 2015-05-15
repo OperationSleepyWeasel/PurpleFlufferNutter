@@ -76,7 +76,7 @@ public class MovieListFragment extends ListFragment {
         // TODO: replace with a real list adapter.
         MovieContentProvider contentProvider = MovieContentProvider.getInstance();
         ArrayList<String> arrayList = contentProvider.getArrayList();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, arrayList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, arrayList);
         setListAdapter(adapter);
     }
 
