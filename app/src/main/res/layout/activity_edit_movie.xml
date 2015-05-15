@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="156dp"
             android:layout_height="wrap_content"
-            android:id="@+id/editMovieValue"
+            android:id="@+id/movie_title_value"
             android:layout_weight="0.06"
             android:layout_gravity="center_horizontal"
             android:editable="true" />
@@ -41,7 +41,7 @@
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText"
+                android:id="@+id/movie_year_value"
                 android:layout_weight="1"
                 android:inputType="text" />
         </LinearLayout>
@@ -67,7 +67,7 @@
                 android:text="Save"
                 android:id="@+id/button_save"
                 android:layout_weight="1"
-                android:onClick="goToDetail" />
+                android:onClick="onClickSaveButton" />
         </LinearLayout>
 
     </LinearLayout>

@@ -68,7 +68,10 @@ public class MovieDetailActivity extends ActionBarActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            NavUtils.navigateUpTo(this, new Intent(this, MovieListActivity.class));
+//            NavUtils.navigateUpTo(this, new Intent(this, MovieListActivity.class));
+//            return true;
+            Intent i = new Intent(getApplicationContext(), MovieListActivity.class);
+            startActivity(i);
             return true;
         }
         if (id == R.id.action_settings) {

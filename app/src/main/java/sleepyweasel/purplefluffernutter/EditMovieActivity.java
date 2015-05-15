@@ -16,7 +16,7 @@ public class EditMovieActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_movie);
 
-        TextView text = (TextView) findViewById(R.id.editMovieValue);
+        TextView text = (TextView) findViewById(R.id.movie_title_value);
         Intent i = getIntent();
         text.setText(i.getStringExtra(AddMovieActivity.MOVIE_TITLE_ID));
     }
@@ -49,6 +49,18 @@ public class EditMovieActivity extends ActionBarActivity {
     public void goToList(View v) {
         Intent i = new Intent(getApplicationContext(), MovieListActivity.class);
         startActivity(i);
+    }
+
+    public void onClickSaveButton(View v) {
+        addNewMovieToContentProvider();
+        goToDetail(v);
+    }
+
+    public void addNewMovieToContentProvider() {
+        TextView text = (TextView) findViewById(R.id.movie_title_value);
+        String movieTitle = text.getText().toString();
+        MovieEntry movieEntry = new MovieEntry(movieTitle);
+        MovieContentProvider.getInstance().addMovie(movieEntry);
     }
 
     public void goToDetail(View v) {
