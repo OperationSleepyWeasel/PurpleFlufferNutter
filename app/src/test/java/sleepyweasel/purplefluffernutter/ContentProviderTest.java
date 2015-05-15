@@ -58,4 +58,23 @@ public class ContentProviderTest {
 
         assertThat(entry.getTitle()).isEqualTo(MOVIE_TITLE_2);
     }
+
+    @Test
+    public void shouldGetMovieEntryByTitle() throws Exception {
+        contentProvider.addMovie(firstEntry);
+
+        MovieEntry entry = contentProvider.getEntryByTitle(MOVIE_TITLE_1);
+
+        assertThat(entry.getTitle()).isEqualTo(MOVIE_TITLE_1);
+    }
+
+    @Test
+    public void shouldReturnNullIfMovieNotFoundByTitle() throws Exception {
+        contentProvider.addMovie(firstEntry);
+        contentProvider.addMovie(secondEntry);
+
+        MovieEntry entry = contentProvider.getEntryByTitle("another title");
+
+        assertThat(entry).isNull();
+    }
 }

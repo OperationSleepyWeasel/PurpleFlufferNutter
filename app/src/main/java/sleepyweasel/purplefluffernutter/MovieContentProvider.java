@@ -1,10 +1,9 @@
 package sleepyweasel.purplefluffernutter;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MovieContentProvider {
-
-    private int size;
 
     private int nextId;
 
@@ -30,5 +29,14 @@ public class MovieContentProvider {
 
     public MovieEntry getEntry(int id) {
         return movieList.get(id);
+    }
+
+    public MovieEntry getEntryByTitle(String movieTitle) {
+        for (Map.Entry<Integer,MovieEntry> entry : movieList.entrySet()) {
+            MovieEntry movie = entry.getValue();
+            if (movie.getTitle().equals(movieTitle))
+                return movie;
+        }
+        return null;
     }
 }
