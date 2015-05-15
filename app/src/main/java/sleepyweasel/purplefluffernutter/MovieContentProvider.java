@@ -1,5 +1,6 @@
 package sleepyweasel.purplefluffernutter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +48,14 @@ public class MovieContentProvider {
     public void clear() {
         movieList.clear();
         nextId = 0;
+    }
+
+    public ArrayList<String> getArrayList() {
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (MovieEntry movie : movieList.values()) {
+            arrayList.add(movie.toString());
+        }
+        return arrayList;
     }
 
     private static class MovieContentProviderHolder {

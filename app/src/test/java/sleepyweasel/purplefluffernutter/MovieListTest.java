@@ -2,6 +2,7 @@ package sleepyweasel.purplefluffernutter;
 
 import android.widget.ListAdapter;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -15,23 +16,31 @@ import static org.junit.Assert.*;
 @Config(constants = BuildConfig.class)
 public class MovieListTest {
 
-    private MovieListActivity activity = Robolectric.setupActivity(MovieListActivity.class);
+    private MovieContentProvider contentProvider;
 
-    private MovieListFragment movieListFragment = (MovieListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.movie_list);
+    @Before
+    public void setUp() {
+        contentProvider = MovieContentProvider.getInstance();
+        contentProvider.clear();
+    }
 
-    private ListAdapter adapter = movieListFragment.getListAdapter();
+    private ListAdapter getListAdapter() {
+        MovieListActivity activity = Robolectric.setupActivity(MovieListActivity.class);
+        MovieListFragment movieListFragment = (MovieListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.movie_list);
+        return movieListFragment.getListAdapter();
+    }
 
     @Test
     public void shouldBeEmptyWhenNoMoviesOnList() throws Exception {
+        ListAdapter adapter = getListAdapter();
         assertThat(adapter.isEmpty()).isTrue();
     }
 
     @Test
     public void shouldNotBeEmptyWhenNewItemAdded() throws Exception {
-        MovieContentProvider contentProvider = MovieContentProvider.getInstance();
-
         contentProvider.addMovie(new MovieEntry("Movie title"));
 
+        ListAdapter adapter = getListAdapter();
         assertThat(adapter.isEmpty()).isFalse();
     }
 }

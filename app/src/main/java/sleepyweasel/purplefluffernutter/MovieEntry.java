@@ -11,4 +11,8 @@ public class MovieEntry {
     public String getTitle() {
         return title;
     }
+
+    public String toString() {
+        return title;
+    }
 }
