@@ -24,4 +24,9 @@ public class Result {
 
     private boolean adult;
     private boolean video;
+
+    public Result (String title, Date releaseDate) {
+        this.title = title;
+        this.releaseDate = releaseDate;
+    }
 }

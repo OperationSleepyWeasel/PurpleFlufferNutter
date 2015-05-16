@@ -80,6 +80,9 @@ public class AddMovieActivity extends ActionBarActivity {
         SearchResult searchResult = tmdb.searchMovie(title.getText().toString());
 
         printSearchResult(searchResult);
+
+        Intent i = new Intent(getApplicationContext(), MoviesFromWebActivity.class);
+        startActivity(i);
     }
 
     private static void printSearchResult(SearchResult searchResult) {
