@@ -53,5 +53,15 @@ public class EditMovieActivityTest {
         assertThat(entry.getYear()).isEqualTo(movieYear);
     }
 
+    @Test
+    public void shouldSaveMovieWithYearZeroIfEditFieldWasLeftEmpty() throws Exception {
+        initActivity();
+        MovieEntryStorage storage = getEmptyStorage();
+        saveButton.performClick();
+
+        MovieEntry entry = storage.getEntry(0);
+        assertThat(entry.getYear()).isZero();
+    }
+
     //TODO: shouldNotSaveAMovieWithoutATitle
 }
