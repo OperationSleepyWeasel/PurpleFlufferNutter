@@ -67,7 +67,7 @@ public class EditMovieActivity extends ActionBarActivity {
     public void addNewMovieToContentProvider() {
         String movieTitle = titleText.getText().toString();
         MovieEntry movieEntry = new MovieEntry(movieTitle);
-        MovieEntryStorage.getInstance().addMovie(movieEntry);
+        MovieEntryStorageVolatile.getInstance().addMovie(movieEntry);
     }
 
     public void goToDetail() {

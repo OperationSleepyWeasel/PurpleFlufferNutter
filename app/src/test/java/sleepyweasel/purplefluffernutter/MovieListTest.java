@@ -21,7 +21,7 @@ public class MovieListTest {
 
     @Before
     public void setUp() {
-        contentProvider = MovieEntryStorage.getInstance();
+        contentProvider = MovieEntryStorageVolatile.getInstance();
         contentProvider.clear();
     }
 

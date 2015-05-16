@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class ContentProviderTest {
 
-    private MovieEntryStorage contentProvider = MovieEntryStorage.getInstance();
+    private MovieEntryStorage contentProvider = MovieEntryStorageVolatile.getInstance();
 
     private static final String MOVIE_TITLE_1 = "title 1";
     private static final String MOVIE_TITLE_2 = "title 2";
@@ -96,7 +96,7 @@ public class ContentProviderTest {
     public void shouldGetOnlyOneContentProviderInstance() throws Exception {
         contentProvider.addMovie(firstEntry);
 
-        MovieEntryStorage anotherContentProvider = MovieEntryStorage.getInstance();
+        MovieEntryStorage anotherContentProvider = MovieEntryStorageVolatile.getInstance();
 
         MovieEntry entry = anotherContentProvider.getEntryByTitle(firstEntry.getTitle());
         assertThat(entry).isEqualTo(firstEntry);

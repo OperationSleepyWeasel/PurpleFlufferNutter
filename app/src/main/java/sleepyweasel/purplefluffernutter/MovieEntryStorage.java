@@ -4,61 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MovieEntryStorage {
+public interface MovieEntryStorage {
 
-    private int nextId;
+    public boolean isEmpty();
 
-    private HashMap<Integer,MovieEntry> movies;
+    public void addMovie(MovieEntry entry);
 
-    private MovieEntryStorage() {
-        movies = new HashMap<>();
-        nextId = 0;
-    }
+    public int size();
 
-    public static MovieEntryStorage getInstance() {
-        return MovieContentProviderHolder.instance;
-    }
+    public MovieEntry getEntry(int id);
 
-    public boolean isEmpty() {
-        return movies.isEmpty();
-    }
+    public MovieEntry getEntryByTitle(String movieTitle);
 
-    public void addMovie(MovieEntry entry) {
-        movies.put(nextId, entry);
-        nextId++;
-    }
+    public void clear();
 
-    public int size() {
-        return movies.size();
-    }
-
-    public MovieEntry getEntry(int id) {
-        return movies.get(id);
-    }
-
-    public MovieEntry getEntryByTitle(String movieTitle) {
-        for (Map.Entry<Integer,MovieEntry> entry : movies.entrySet()) {
-            MovieEntry movie = entry.getValue();
-            if (movie.getTitle().equals(movieTitle))
-                return movie;
-        }
-        return null;
-    }
-
-    public void clear() {
-        movies.clear();
-        nextId = 0;
-    }
-
-    public ArrayList<String> getMovieTitles() {
-        ArrayList<String> arrayList = new ArrayList<>();
-        for (MovieEntry movie : movies.values()) {
-            arrayList.add(movie.getTitle());
-        }
-        return arrayList;
-    }
-
-    private static class MovieContentProviderHolder {
-        private final static MovieEntryStorage instance = new MovieEntryStorage();
-    }
+    public ArrayList<String> getMovieTitles();
 }

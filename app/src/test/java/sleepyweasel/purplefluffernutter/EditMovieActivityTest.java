@@ -28,7 +28,7 @@ public class EditMovieActivityTest {
     }
 
     MovieEntryStorage getEmptyContentProvider() {
-        MovieEntryStorage contentProvider = MovieEntryStorage.getInstance();
+        MovieEntryStorage contentProvider = MovieEntryStorageVolatile.getInstance();
         contentProvider.clear();
         return contentProvider;
     }
