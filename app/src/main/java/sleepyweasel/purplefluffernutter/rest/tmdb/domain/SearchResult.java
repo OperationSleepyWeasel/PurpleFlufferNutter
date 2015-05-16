@@ -1,4 +1,4 @@
-package sleepyweasel.purplefluffernutter.dummy.retrofit;
+package sleepyweasel.purplefluffernutter.rest.tmdb.domain;
 
 import java.util.List;
 

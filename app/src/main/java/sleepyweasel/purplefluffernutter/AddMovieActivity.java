@@ -14,9 +14,9 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import sleepyweasel.purplefluffernutter.dummy.retrofit.Result;
-import sleepyweasel.purplefluffernutter.dummy.retrofit.SearchResult;
-import sleepyweasel.purplefluffernutter.dummy.retrofit.Tmdb;
+import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
+import sleepyweasel.purplefluffernutter.rest.tmdb.domain.SearchResult;
+import sleepyweasel.purplefluffernutter.rest.tmdb.Tmdb;
 
 public class AddMovieActivity extends ActionBarActivity {
 

@@ -5,6 +5,9 @@ import javax.inject.Inject;
 import sleepyweasel.purplefluffernutter.components.DaggerTmdbComponent;
 import sleepyweasel.purplefluffernutter.components.TmdbComponent;
 import sleepyweasel.purplefluffernutter.modules.TmdbModule;
+import sleepyweasel.purplefluffernutter.rest.tmdb.Tmdb;
+import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
+import sleepyweasel.purplefluffernutter.rest.tmdb.domain.SearchResult;
 
 public class TmdbApiaryClient {
     @Inject

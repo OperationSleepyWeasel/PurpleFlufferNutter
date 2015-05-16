@@ -12,8 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
-import sleepyweasel.purplefluffernutter.dummy.retrofit.Tmdb;
-import sleepyweasel.purplefluffernutter.dummy.retrofit.deserializers.DateDeserializer;
+import sleepyweasel.purplefluffernutter.rest.tmdb.Tmdb;
+import sleepyweasel.purplefluffernutter.rest.deserializers.DateDeserializer;
 
 @Module
 @AllArgsConstructor(suppressConstructorProperties = true)

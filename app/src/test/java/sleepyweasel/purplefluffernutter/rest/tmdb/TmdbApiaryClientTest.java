@@ -1,4 +1,4 @@
-package sleepyweasel.purplefluffernutter.dummy.retrofit;
+package sleepyweasel.purplefluffernutter.rest.tmdb;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -11,7 +11,8 @@ import java.util.GregorianCalendar;
 
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
-import sleepyweasel.purplefluffernutter.dummy.retrofit.deserializers.DateDeserializer;
+import sleepyweasel.purplefluffernutter.rest.deserializers.DateDeserializer;
+import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
