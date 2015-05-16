@@ -8,7 +8,5 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor(suppressConstructorProperties = true)
 class MovieEntry {
-
     private String title;
-
 }

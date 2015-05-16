@@ -1,21 +1,11 @@
 package sleepyweasel.purplefluffernutter.dummy.retrofit;
 
-import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.internal.bind.DateTypeAdapter;
 
 import org.junit.Test;
 
-import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -47,7 +37,7 @@ public class TmdbApiaryClientTest {
         .setConverter(new GsonConverter(gson))
         .build();
 
-    private TmdbApiary tmdbApiary = restAdapter.create(TmdbApiary.class);
+    private Tmdb tmdbApiary = restAdapter.create(Tmdb.class);
 
     @Test
     public void shouldReturnNumberOfPages() {

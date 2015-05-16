@@ -1,34 +1,23 @@
 package sleepyweasel.purplefluffernutter.dummy.retrofit;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.internal.bind.DateTypeAdapter;
+import javax.inject.Inject;
 
-import java.util.Date;
-
-import retrofit.RestAdapter;
-import retrofit.converter.GsonConverter;
-import sleepyweasel.purplefluffernutter.dummy.retrofit.deserializers.DateDeserializer;
+import sleepyweasel.purplefluffernutter.components.DaggerTmdbComponent;
+import sleepyweasel.purplefluffernutter.components.TmdbComponent;
 
 public class TmdbApiaryClient {
-    //i am not sure how long does it last
-    private static final String TMDB_APIARY_URL = "http://private-anon-975b18d78-themoviedb.apiary-mock.com/3";
+    @Inject
+    Tmdb tmdb;
+
+    private TmdbApiaryClient() {
+        TmdbComponent component = DaggerTmdbComponent.create();
+        component.inject(this);
+    }
 
     public static void main(String... args) {
-        Gson gson = new GsonBuilder()
-            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-            .registerTypeAdapter(Date.class, new DateDeserializer())
-            .create();
+        TmdbApiaryClient client = new TmdbApiaryClient();
 
-        RestAdapter restAdapter = new RestAdapter.Builder()
-            .setEndpoint(TMDB_APIARY_URL)
-            .setConverter(new GsonConverter(gson))
-            .build();
-
-        TmdbApiary tmdbApiary = restAdapter.create(TmdbApiary.class);
-
-        SearchResult searchResult = tmdbApiary.searchMovie("whatever");
+        SearchResult searchResult = client.tmdb.searchMovie("whatever");
 
         printSearchResult(searchResult);
     }
