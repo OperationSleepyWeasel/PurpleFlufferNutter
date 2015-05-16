@@ -15,14 +15,14 @@ import static org.assertj.core.api.Assertions.*;
 @Config(constants = BuildConfig.class)
 public class MovieListTest {
 
-    private MovieEntryStorage contentProvider;
+    private MovieEntryStorage storage;
 
     private static final String MOVIE_TITLE = "Movie title";
 
     @Before
     public void setUp() {
-        contentProvider = MovieEntryStorageVolatile.getInstance();
-        contentProvider.clear();
+        storage = MovieEntryStorageVolatile.getInstance();
+        storage.clear();
     }
 
     private ListAdapter getListAdapter() {
@@ -39,7 +39,7 @@ public class MovieListTest {
 
     @Test
     public void shouldNotBeEmptyWhenNewItemAdded() throws Exception {
-        contentProvider.addMovie(new MovieEntry(MOVIE_TITLE));
+        storage.addMovie(new MovieEntry(MOVIE_TITLE));
 
         ListAdapter adapter = getListAdapter();
         assertThat(adapter.isEmpty()).isFalse();
@@ -47,7 +47,7 @@ public class MovieListTest {
 
     @Test
     public void shouldDisplayMovieTitleAsListElementLabel() throws Exception {
-        contentProvider.addMovie(new MovieEntry(MOVIE_TITLE));
+        storage.addMovie(new MovieEntry(MOVIE_TITLE));
 
         ListAdapter adapter = getListAdapter();
         String label = adapter.getItem(0).toString();

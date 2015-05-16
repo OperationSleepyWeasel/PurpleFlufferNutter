@@ -27,22 +27,22 @@ public class EditMovieActivityTest {
         ButterKnife.inject(this, activity);
     }
 
-    MovieEntryStorage getEmptyContentProvider() {
-        MovieEntryStorage contentProvider = MovieEntryStorageVolatile.getInstance();
-        contentProvider.clear();
-        return contentProvider;
+    MovieEntryStorage getEmptyStorage() {
+        MovieEntryStorage storage = MovieEntryStorageVolatile.getInstance();
+        storage.clear();
+        return storage;
     }
 
     @Test
-    public void shouldOnClickSaveButtonAddMovieToContentProvider() throws Exception {
+    public void shouldOnClickSaveButtonAddMovieToStorage() throws Exception {
         initActivity();
         String movieTitle = movieTitleTextView.getText().toString();
-        MovieEntryStorage contentProvider = getEmptyContentProvider();
+        MovieEntryStorage storage = getEmptyStorage();
 
         saveButton.performClick();
 
-        assertThat(contentProvider.size()).isEqualTo(1);
-        MovieEntry entry = contentProvider.getEntry(0);
+        assertThat(storage.size()).isEqualTo(1);
+        MovieEntry entry = storage.getEntry(0);
         assertThat(entry.getTitle()).isEqualTo(movieTitle);
     }
 

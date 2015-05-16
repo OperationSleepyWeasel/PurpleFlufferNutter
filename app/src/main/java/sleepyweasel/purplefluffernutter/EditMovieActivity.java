@@ -60,11 +60,11 @@ public class EditMovieActivity extends ActionBarActivity {
     @OnClick(R.id.button_save)
     @SuppressWarnings("unused")
     public void onClickSaveButton(View v) {
-        addNewMovieToContentProvider();
+        addNewMovieToStorage();
         goToDetail();
     }
 
-    public void addNewMovieToContentProvider() {
+    public void addNewMovieToStorage() {
         String movieTitle = titleText.getText().toString();
         MovieEntry movieEntry = new MovieEntry(movieTitle);
         MovieEntryStorageVolatile.getInstance().addMovie(movieEntry);
