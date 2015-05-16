@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import org.parceler.Parcels;
+
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
@@ -22,6 +24,7 @@ import sleepyweasel.purplefluffernutter.rest.tmdb.Tmdb;
 public class AddMovieActivity extends ActionBarActivity {
 
     public static final String MOVIE_TITLE_ID = "movie_title_id";
+    public static final String FOUND_MOVIES_ID = "found_movies_id";
 
     @Inject
     Tmdb tmdb;
@@ -82,6 +85,7 @@ public class AddMovieActivity extends ActionBarActivity {
         printSearchResult(searchResult);
 
         Intent i = new Intent(getApplicationContext(), MoviesFromWebActivity.class);
+        i.putExtra(AddMovieActivity.FOUND_MOVIES_ID, Parcels.wrap(searchResult));
         startActivity(i);
     }
 

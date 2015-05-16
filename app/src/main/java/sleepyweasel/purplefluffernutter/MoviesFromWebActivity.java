@@ -5,17 +5,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import org.parceler.Parcels;
 
 import sleepyweasel.purplefluffernutter.adapters.MoviesSearchResultAdapter;
-import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
+import sleepyweasel.purplefluffernutter.rest.tmdb.domain.SearchResult;
 
 
 public class MoviesFromWebActivity extends ListActivity {
 
-    List<Result> results;
+    SearchResult searchResult;
     MoviesSearchResultAdapter moviesSearchResultAdapter;
 
     @Override
@@ -23,14 +21,8 @@ public class MoviesFromWebActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies_from_web);
 
-        results = Arrays.asList(
-                new Result("cos", new Date()),
-                new Result("cos1", new Date()),
-                new Result("cos2", new Date()),
-                new Result("cos3", new Date())
-        );
-
-        moviesSearchResultAdapter = new MoviesSearchResultAdapter(this, R.layout.movie_search_result, results);
+        searchResult = Parcels.unwrap(this.getIntent().getExtras().getParcelable(AddMovieActivity.FOUND_MOVIES_ID));
+        moviesSearchResultAdapter = new MoviesSearchResultAdapter(this, R.layout.movie_search_result, searchResult.getResults());
         setListAdapter(moviesSearchResultAdapter);
     }
 

@@ -39,7 +39,7 @@ public class MoviesSearchResultAdapter extends ArrayAdapter<Result> {
         Result result = results.get(position);
 
         holder.titleView.setText(result.getTitle());
-        holder.releaseDateView.setText(result.getReleaseDate().toString());
+        holder.releaseDateView.setText(result.getReleaseDate() != null ? result.getReleaseDate().toString() : "?");
 
         return view;
     }

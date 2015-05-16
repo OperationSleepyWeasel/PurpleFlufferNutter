@@ -10,9 +10,12 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.ArrayList;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import sleepyweasel.purplefluffernutter.rest.tmdb.Tmdb;
+import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.SearchResult;
 
 import static org.mockito.Matchers.anyString;
@@ -40,7 +43,10 @@ public class AddMovieActivityTest {
         //http://stackoverflow.com/questions/26939340/how-do-you-override-a-module-dependency-in-a-unit-test-with-dagger-2-0
         //https://github.com/chiuki/android-test-demo
         activity.tmdb = mock(Tmdb.class);
-        when(activity.tmdb.searchMovie(anyString())).thenReturn(mock(SearchResult.class));
+        //not using mock here because of @Parcel generation (it would be nice to find workaround)
+        SearchResult searchResult = new SearchResult();
+        searchResult.setResults(new ArrayList<Result>());
+        when(activity.tmdb.searchMovie(anyString())).thenReturn(searchResult);
     }
 
     @Test

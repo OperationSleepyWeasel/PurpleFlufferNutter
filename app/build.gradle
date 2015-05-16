@@ -45,15 +45,20 @@ dependencies {
     //http://stackoverflow.com/questions/29193806/specifying-order-of-annotation-processors
     //but here it is somehow used:
     //https://github.com/mgrzechocinski/dagger2-example
-    provided 'org.projectlombok:lombok:1.16.2'
+    //provided 'org.projectlombok:lombok:1.16.2'
     //so we try to add:
-    apt "org.projectlombok:lombok:1.16.2"
+    //apt "org.projectlombok:lombok:1.16.2"
+    //but lombok does not work with parceler:
+    //https://github.com/johncarl81/parceler/issues/41
 
     compile 'com.jakewharton:butterknife:6.1.0'
 
     compile 'javax.annotation:javax.annotation-api:1.2'
     compile 'com.google.dagger:dagger:2.0'
     apt 'com.google.dagger:dagger-compiler:2.0'
+
+    compile "org.parceler:parceler-api:1.0.0"
+    apt "org.parceler:parceler:1.0.0"
 
     testCompile 'junit:junit:4.10'
 
