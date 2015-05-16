@@ -1,43 +1,36 @@
 package sleepyweasel.purplefluffernutter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
+
+import sleepyweasel.purplefluffernutter.storage.LightStorage;
 
 public class MovieEntryStorageVolatile implements MovieEntryStorage {
 
-    private int nextId;
+    LightStorage storage;
 
-    private HashMap<Integer,MovieEntry> movies;
-
-    private MovieEntryStorageVolatile() {
-        movies = new HashMap<>();
-        nextId = 0;
-    }
-
-    public static MovieEntryStorageVolatile getInstance() {
-        return MovieContentProviderHolder.instance;
+    public MovieEntryStorageVolatile() {
+        storage = LightStorage.getInstance();
     }
 
     public boolean isEmpty() {
-        return movies.isEmpty();
+        return storage.size() == 0;
     }
 
     public void addMovie(MovieEntry entry) {
-        movies.put(nextId, entry);
-        nextId++;
+        storage.add(entry);
     }
 
     public int size() {
-        return movies.size();
+        return storage.size();
     }
 
     public MovieEntry getEntry(int id) {
-        return movies.get(id);
+        return storage.get(id);
     }
 
     public MovieEntry getEntryByTitle(String movieTitle) {
-        for (Map.Entry<Integer,MovieEntry> entry : movies.entrySet()) {
+        for (Map.Entry<Integer,MovieEntry> entry : storage.entrySet()) {
             MovieEntry movie = entry.getValue();
             if (movie.getTitle().equals(movieTitle))
                 return movie;
@@ -46,19 +39,14 @@ public class MovieEntryStorageVolatile implements MovieEntryStorage {
     }
 
     public void clear() {
-        movies.clear();
-        nextId = 0;
+        storage.clear();
     }
 
     public ArrayList<String> getMovieTitles() {
         ArrayList<String> arrayList = new ArrayList<>();
-        for (MovieEntry movie : movies.values()) {
+        for (MovieEntry movie : storage.values()) {
             arrayList.add(movie.getTitle());
         }
         return arrayList;
-    }
-
-    private static class MovieContentProviderHolder {
-        private final static MovieEntryStorageVolatile instance = new MovieEntryStorageVolatile();
     }
 }

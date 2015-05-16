@@ -1,6 +1,6 @@
 package sleepyweasel.purplefluffernutter;
 
-class MovieEntry {
+public class MovieEntry {
     private String title;
 
     MovieEntry(String title) {
