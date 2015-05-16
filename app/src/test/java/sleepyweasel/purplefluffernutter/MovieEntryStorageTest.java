@@ -1,12 +1,22 @@
 package sleepyweasel.purplefluffernutter;
 
+import android.content.ContentUris;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowContentResolver;
 
+import sleepyweasel.purplefluffernutter.storage.MovieContentProvider;
 import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 import static org.assertj.core.api.Assertions.*;
 
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class MovieEntryStorageTest {
 
     private MovieEntryStorage storage = StorageUtils.getMovieStorage();
@@ -21,6 +31,8 @@ public class MovieEntryStorageTest {
 
     @Before
     public void setUp() throws Exception {
+        ShadowContentResolver.registerProvider("sleepyweasel.purplefluffernutter.MoviesProvider", (MovieContentProvider) storage);
+        ((MovieContentProvider) storage).onCreate();
         storage.clear();
     }
 

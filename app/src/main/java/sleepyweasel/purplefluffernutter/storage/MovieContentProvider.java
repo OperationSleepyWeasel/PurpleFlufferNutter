@@ -1,6 +1,7 @@
 package sleepyweasel.purplefluffernutter.storage;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,6 +16,14 @@ import sleepyweasel.purplefluffernutter.MovieEntryStorage;
 
 public class MovieContentProvider extends ContentProvider implements MovieEntryStorage {
 
+    private static final String MOVIES_TABLE_NAME = "movies";
+    private static final String PROVIDER_NAME = "sleepyweasel.purplefluffernutter.MoviesProvider";
+    private static final String URL = "content://" + PROVIDER_NAME + "/movies";
+    private static final Uri CONTENT_URI = Uri.parse(URL);
+
+    static final String TITLE_COLUMN_NAME = "title";
+    static final String YEAR_COLUMN_NAME = "year";
+
     @Override
     public boolean onCreate() {
         Context context = getContext();
@@ -25,12 +34,15 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return true;
     }
 
     @Override
     public void addMovie(MovieEntry entry) {
-
+        ContentValues values = new ContentValues();
+        values.put(TITLE_COLUMN_NAME, entry.getTitle());
+        values.put(YEAR_COLUMN_NAME, entry.getYear());
+        insert(CONTENT_URI, values);
     }
 
     @Override
@@ -70,6 +82,12 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
+        long rowID = database.insert(MOVIES_TABLE_NAME, "", values);
+        if (rowID > 0) {
+            Uri changeUri = ContentUris.withAppendedId(CONTENT_URI, rowID);
+            getContext().getContentResolver().notifyChange(changeUri, null);
+            return changeUri;
+        }
         return null;
     }
 
@@ -89,7 +107,8 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
 
         private static final int DATABASE_VERSION = 1;
         private static final String DATABASE_NAME = "Repository";
-        private static final String CREATE_DB_TABLE = " CREATE TABLE movies (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, year TEXT NOT NULL);";
+        private static final String CREATE_DB_TABLE = " CREATE TABLE " + MOVIES_TABLE_NAME +
+                " (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, year TEXT NOT NULL);";
 
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
