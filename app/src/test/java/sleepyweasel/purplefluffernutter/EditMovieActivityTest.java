@@ -23,6 +23,8 @@ public class EditMovieActivityTest {
 
     @InjectView(R.id.movie_title_value) TextView movieTitleTextView;
 
+    @InjectView(R.id.movie_year_value) TextView movieYearTextView;
+
     void initActivity() {
         EditMovieActivity activity = Robolectric.setupActivity(EditMovieActivity.class);
         ButterKnife.inject(this, activity);
@@ -37,7 +39,10 @@ public class EditMovieActivityTest {
     @Test
     public void shouldOnClickSaveButtonAddMovieToStorage() throws Exception {
         initActivity();
+        movieYearTextView.setText("1991");
         String movieTitle = movieTitleTextView.getText().toString();
+        String movieYearString = movieYearTextView.getText().toString();
+        int movieYear = Integer.parseInt(movieYearString);
         MovieEntryStorage storage = getEmptyStorage();
 
         saveButton.performClick();
@@ -45,6 +50,7 @@ public class EditMovieActivityTest {
         assertThat(storage.size()).isEqualTo(1);
         MovieEntry entry = storage.getEntry(0);
         assertThat(entry.getTitle()).isEqualTo(movieTitle);
+        assertThat(entry.getYear()).isEqualTo(movieYear);
     }
 
     //TODO: shouldNotSaveAMovieWithoutATitle

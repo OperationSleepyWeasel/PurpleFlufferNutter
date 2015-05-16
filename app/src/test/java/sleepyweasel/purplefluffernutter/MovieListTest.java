@@ -20,6 +20,7 @@ public class MovieListTest {
     private MovieEntryStorage storage;
 
     private static final String MOVIE_TITLE = "Movie title";
+    private static final int MOVIE_YEAR = 1994;
 
     @Before
     public void setUp() {
@@ -41,7 +42,7 @@ public class MovieListTest {
 
     @Test
     public void shouldNotBeEmptyWhenNewItemAdded() throws Exception {
-        storage.addMovie(new MovieEntry(MOVIE_TITLE));
+        storage.addMovie(new MovieEntry(MOVIE_TITLE, MOVIE_YEAR));
 
         ListAdapter adapter = getListAdapter();
         assertThat(adapter.isEmpty()).isFalse();
@@ -49,7 +50,7 @@ public class MovieListTest {
 
     @Test
     public void shouldDisplayMovieTitleAsListElementLabel() throws Exception {
-        storage.addMovie(new MovieEntry(MOVIE_TITLE));
+        storage.addMovie(new MovieEntry(MOVIE_TITLE, MOVIE_YEAR));
 
         ListAdapter adapter = getListAdapter();
         String label = adapter.getItem(0).toString();

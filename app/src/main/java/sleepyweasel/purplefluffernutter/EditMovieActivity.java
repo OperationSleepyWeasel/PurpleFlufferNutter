@@ -18,6 +18,8 @@ public class EditMovieActivity extends ActionBarActivity {
 
     @InjectView(R.id.movie_title_value) TextView titleText;
 
+    @InjectView(R.id.movie_year_value) TextView yearValue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,9 @@ public class EditMovieActivity extends ActionBarActivity {
 
     public void addNewMovieToStorage() {
         String movieTitle = titleText.getText().toString();
-        MovieEntry movieEntry = new MovieEntry(movieTitle);
+        String movieYearString = yearValue.getText().toString();
+        int movieYear = Integer.parseInt(movieYearString);
+        MovieEntry movieEntry = new MovieEntry(movieTitle, movieYear);
         MovieEntryStorage storage = StorageUtils.getMovieStorage();
         storage.addMovie(movieEntry);
     }

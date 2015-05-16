@@ -13,9 +13,11 @@ public class MovieEntryStorageTest {
 
     private static final String MOVIE_TITLE_1 = "title 1";
     private static final String MOVIE_TITLE_2 = "title 2";
+    private static final int MOVIE_YEAR_1 = 1991;
+    private static final int MOVIE_YEAR_2 = 2000;
 
-    private MovieEntry firstEntry = new MovieEntry(MOVIE_TITLE_1);
-    private MovieEntry secondEntry = new MovieEntry(MOVIE_TITLE_2);
+    private MovieEntry firstEntry = new MovieEntry(MOVIE_TITLE_1, MOVIE_YEAR_1);
+    private MovieEntry secondEntry = new MovieEntry(MOVIE_TITLE_2, MOVIE_YEAR_2);
 
     @Before
     public void setUp() throws Exception {
