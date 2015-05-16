@@ -1,4 +1,4 @@
-package sleepyweasel.purplefluffernutter.dummy.retrofit;
+package sleepyweasel.purplefluffernutter.dummy;
 
 import javax.inject.Inject;
 

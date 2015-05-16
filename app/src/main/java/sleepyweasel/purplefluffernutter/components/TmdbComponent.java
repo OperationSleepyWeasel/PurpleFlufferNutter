@@ -2,7 +2,7 @@ package sleepyweasel.purplefluffernutter.components;
 
 import dagger.Component;
 import sleepyweasel.purplefluffernutter.AddMovieActivity;
-import sleepyweasel.purplefluffernutter.dummy.retrofit.TmdbApiaryClient;
+import sleepyweasel.purplefluffernutter.dummy.TmdbApiaryClient;
 import sleepyweasel.purplefluffernutter.modules.TmdbModule;
 
 @Component(modules = TmdbModule.class)
