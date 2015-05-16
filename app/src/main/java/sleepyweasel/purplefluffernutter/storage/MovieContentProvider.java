@@ -16,13 +16,43 @@ import sleepyweasel.purplefluffernutter.MovieEntryStorage;
 
 public class MovieContentProvider extends ContentProvider implements MovieEntryStorage {
 
-    private static final String MOVIES_TABLE_NAME = "movies";
-    private static final String PROVIDER_NAME = "sleepyweasel.purplefluffernutter.MoviesProvider";
+    public static final String PROVIDER_NAME = "sleepyweasel.purplefluffernutter.MoviesProvider";
+
     private static final String URL = "content://" + PROVIDER_NAME + "/movies";
     private static final Uri CONTENT_URI = Uri.parse(URL);
 
+    private SQLiteDatabase database;
+
     static final String TITLE_COLUMN_NAME = "title";
     static final String YEAR_COLUMN_NAME = "year";
+
+    private static final String MOVIES_TABLE_NAME = "movies";
+
+    private static class DatabaseHelper extends SQLiteOpenHelper {
+
+        private static final int DATABASE_VERSION = 1;
+        private static final String DATABASE_NAME = "Repository";
+        private static final String ID_COLUMN = "_id INTEGER PRIMARY KEY AUTOINCREMENT";
+        private static final String TITLE_COLUMN = TITLE_COLUMN_NAME + " TEXT NOT NULL";
+        private static final String YEAR_COLUMN = YEAR_COLUMN_NAME + " TEXT NOT NULL";
+
+        public DatabaseHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            String CREATE_DB_TABLE = " CREATE TABLE " + MOVIES_TABLE_NAME +
+                    " ( " + ID_COLUMN + ", " + TITLE_COLUMN + ", " + YEAR_COLUMN + ");";
+            db.execSQL(CREATE_DB_TABLE);
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            db.execSQL("DROP TABLE IF EXISTS movies");
+            onCreate(db);
+        }
+    }
 
     @Override
     public boolean onCreate() {
@@ -99,30 +129,5 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         return 0;
-    }
-
-    private SQLiteDatabase database;
-
-    private static class DatabaseHelper extends SQLiteOpenHelper {
-
-        private static final int DATABASE_VERSION = 1;
-        private static final String DATABASE_NAME = "Repository";
-        private static final String CREATE_DB_TABLE = " CREATE TABLE " + MOVIES_TABLE_NAME +
-                " (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, year TEXT NOT NULL);";
-
-        public DatabaseHelper(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(CREATE_DB_TABLE);
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS movies");
-            onCreate(db);
-        }
     }
 }
