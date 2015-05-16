@@ -13,6 +13,7 @@ import android.widget.EditText;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.OnClick;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.SearchResult;
@@ -24,6 +25,8 @@ public class AddMovieActivity extends ActionBarActivity {
 
     @Inject
     Tmdb tmdb;
+
+    @InjectView(R.id.titleTextField) EditText title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +77,7 @@ public class AddMovieActivity extends ActionBarActivity {
     public void findOnWeb() {
         Log.d("Debug : ", "findOnWeb");
 
-        SearchResult searchResult = tmdb.searchMovie("whatever");
+        SearchResult searchResult = tmdb.searchMovie(title.getText().toString());
 
         printSearchResult(searchResult);
     }
