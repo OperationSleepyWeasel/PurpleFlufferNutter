@@ -4,13 +4,14 @@ import javax.inject.Inject;
 
 import sleepyweasel.purplefluffernutter.components.DaggerTmdbComponent;
 import sleepyweasel.purplefluffernutter.components.TmdbComponent;
+import sleepyweasel.purplefluffernutter.modules.TmdbModule;
 
 public class TmdbApiaryClient {
     @Inject
     Tmdb tmdb;
 
     private TmdbApiaryClient() {
-        TmdbComponent component = DaggerTmdbComponent.create();
+        TmdbComponent component = DaggerTmdbComponent.builder().tmdbModule(new TmdbModule(TmdbModule.TMDB_APIARY_URL)).build();
         component.inject(this);
     }
 

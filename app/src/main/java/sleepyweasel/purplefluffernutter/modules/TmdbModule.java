@@ -8,14 +8,20 @@ import java.util.Date;
 
 import dagger.Module;
 import dagger.Provides;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 import sleepyweasel.purplefluffernutter.dummy.retrofit.Tmdb;
 import sleepyweasel.purplefluffernutter.dummy.retrofit.deserializers.DateDeserializer;
 
 @Module
+@AllArgsConstructor(suppressConstructorProperties = true)
 public class TmdbModule {
-    private static final String TMDB_APIARY_URL = "http://private-anon-975b18d78-themoviedb.apiary-mock.com/3";
+    public static final String TMDB_APIARY_URL = "http://private-anon-975b18d78-themoviedb.apiary-mock.com/3";
+
+    @Getter
+    private String url;
 
     @Provides
     Tmdb provideTmdb(RestAdapter restAdapter) {
@@ -25,7 +31,7 @@ public class TmdbModule {
     @Provides
     RestAdapter provideRestAdapter(GsonConverter gsonConverter) {
         return new RestAdapter.Builder()
-            .setEndpoint(TMDB_APIARY_URL)
+            .setEndpoint(url)
             .setConverter(gsonConverter)
             .build();
     }
