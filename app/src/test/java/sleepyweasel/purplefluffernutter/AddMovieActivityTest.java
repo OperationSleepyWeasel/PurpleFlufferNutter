@@ -35,12 +35,16 @@ public class AddMovieActivityTest {
     public void setUp() {
         activity = Robolectric.setupActivity(AddMovieActivity.class);
         ButterKnife.inject(this, activity);
+
+        //TODO: try one of below methods (they seemed not working for me)
+        //http://stackoverflow.com/questions/26939340/how-do-you-override-a-module-dependency-in-a-unit-test-with-dagger-2-0
+        //https://github.com/chiuki/android-test-demo
         activity.tmdb = mock(Tmdb.class);
         when(activity.tmdb.searchMovie(anyString())).thenReturn(mock(SearchResult.class));
     }
 
     @Test
-    public void shouldCallTmdbWithProperQuery() {
+    public void shouldSearchMoviesInTmdbWithProperQuery() {
         title.setText(QUERY);
 
         button.performClick();
