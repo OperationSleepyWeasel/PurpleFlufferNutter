@@ -70,8 +70,8 @@ public class EditMovieActivity extends ActionBarActivity {
     public void addNewMovieToStorage() {
         String movieTitle = titleText.getText().toString();
         String movieYearString = yearValue.getText().toString();
-        MovieEntry movieEntry = new MovieEntry(movieTitle, 0);
-        movieEntry.setYear(movieYearString);
+        int movieYear = Integer.parseInt(movieYearString);
+        MovieEntry movieEntry = new MovieEntry(movieTitle, movieYear);
         MovieEntryStorage storage = StorageUtils.getMovieStorage();
         storage.addMovie(movieEntry);
     }

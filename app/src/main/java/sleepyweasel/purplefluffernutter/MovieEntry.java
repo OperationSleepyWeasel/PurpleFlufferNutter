@@ -16,13 +16,4 @@ public class MovieEntry {
     public int getYear() {
         return year;
     }
-
-    void setYear(String text) {
-        try {
-            this.year = Integer.parseInt(text);
-        } catch (NumberFormatException ex) {
-            if (text.isEmpty())
-                this.year = 0;
-        }
-    }
 }
