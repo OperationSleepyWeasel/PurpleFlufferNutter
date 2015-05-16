@@ -18,6 +18,7 @@ import sleepyweasel.purplefluffernutter.rest.deserializers.DateDeserializer;
 @Module
 @AllArgsConstructor(suppressConstructorProperties = true)
 public class TmdbModule {
+    //i am not sure how long does it last
     public static final String TMDB_APIARY_URL = "http://private-anon-975b18d78-themoviedb.apiary-mock.com/3";
 
     @Getter
