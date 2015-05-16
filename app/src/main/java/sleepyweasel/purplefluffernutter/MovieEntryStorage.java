@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MovieContentProvider {
+public class MovieEntryStorage {
 
     private int nextId;
 
     private HashMap<Integer,MovieEntry> movies;
 
-    private MovieContentProvider() {
+    private MovieEntryStorage() {
         movies = new HashMap<>();
         nextId = 0;
     }
 
-    public static MovieContentProvider getInstance() {
+    public static MovieEntryStorage getInstance() {
         return MovieContentProviderHolder.instance;
     }
 
@@ -59,6 +59,6 @@ public class MovieContentProvider {
     }
 
     private static class MovieContentProviderHolder {
-        private final static MovieContentProvider instance = new MovieContentProvider();
+        private final static MovieEntryStorage instance = new MovieEntryStorage();
     }
 }

@@ -13,7 +13,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.Assert.*;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -28,8 +27,8 @@ public class EditMovieActivityTest {
         ButterKnife.inject(this, activity);
     }
 
-    MovieContentProvider getEmptyContentProvider() {
-        MovieContentProvider contentProvider = MovieContentProvider.getInstance();
+    MovieEntryStorage getEmptyContentProvider() {
+        MovieEntryStorage contentProvider = MovieEntryStorage.getInstance();
         contentProvider.clear();
         return contentProvider;
     }
@@ -38,7 +37,7 @@ public class EditMovieActivityTest {
     public void shouldOnClickSaveButtonAddMovieToContentProvider() throws Exception {
         initActivity();
         String movieTitle = movieTitleTextView.getText().toString();
-        MovieContentProvider contentProvider = getEmptyContentProvider();
+        MovieEntryStorage contentProvider = getEmptyContentProvider();
 
         saveButton.performClick();
 

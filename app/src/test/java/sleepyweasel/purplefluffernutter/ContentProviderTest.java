@@ -4,11 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.Assert.*;
 
 public class ContentProviderTest {
 
-    private MovieContentProvider contentProvider = MovieContentProvider.getInstance();
+    private MovieEntryStorage contentProvider = MovieEntryStorage.getInstance();
 
     private static final String MOVIE_TITLE_1 = "title 1";
     private static final String MOVIE_TITLE_2 = "title 2";
@@ -97,7 +96,7 @@ public class ContentProviderTest {
     public void shouldGetOnlyOneContentProviderInstance() throws Exception {
         contentProvider.addMovie(firstEntry);
 
-        MovieContentProvider anotherContentProvider = MovieContentProvider.getInstance();
+        MovieEntryStorage anotherContentProvider = MovieEntryStorage.getInstance();
 
         MovieEntry entry = anotherContentProvider.getEntryByTitle(firstEntry.getTitle());
         assertThat(entry).isEqualTo(firstEntry);

@@ -10,19 +10,18 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.Assert.*;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class MovieListTest {
 
-    private MovieContentProvider contentProvider;
+    private MovieEntryStorage contentProvider;
 
     private static final String MOVIE_TITLE = "Movie title";
 
     @Before
     public void setUp() {
-        contentProvider = MovieContentProvider.getInstance();
+        contentProvider = MovieEntryStorage.getInstance();
         contentProvider.clear();
     }
 
