@@ -11,6 +11,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import sleepyweasel.purplefluffernutter.dummy.DummyContent;
+import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 /**
  * A list fragment representing a list of Movies. This fragment
@@ -74,7 +75,7 @@ public class MovieListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         // TODO: replace with a real list adapter.
-        MovieEntryStorageVolatile storage = new MovieEntryStorageVolatile();
+        MovieEntryStorage storage = StorageUtils.getMovieStorage();
         ArrayList<String> arrayList = storage.getMovieTitles();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, arrayList);
         setListAdapter(adapter);

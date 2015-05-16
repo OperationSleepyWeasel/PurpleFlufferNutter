@@ -9,6 +9,8 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
+import sleepyweasel.purplefluffernutter.storage.StorageUtils;
+
 import static org.assertj.core.api.Assertions.*;
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -21,7 +23,7 @@ public class MovieListTest {
 
     @Before
     public void setUp() {
-        storage = new MovieEntryStorageVolatile();
+        storage = StorageUtils.getMovieStorage();
         storage.clear();
     }
 

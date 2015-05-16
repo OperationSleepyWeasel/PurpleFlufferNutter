@@ -11,6 +11,7 @@ import org.robolectric.annotation.Config;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -28,7 +29,7 @@ public class EditMovieActivityTest {
     }
 
     MovieEntryStorage getEmptyStorage() {
-        MovieEntryStorage storage = new MovieEntryStorageVolatile();
+        MovieEntryStorage storage = StorageUtils.getMovieStorage();
         storage.clear();
         return storage;
     }

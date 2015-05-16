@@ -26,6 +26,7 @@ public class LightStorage {
 
     public void clear() {
         movies.clear();
+        nextId = 0;
     }
 
     public Iterable<? extends Map.Entry<Integer, MovieEntry>> entrySet() {

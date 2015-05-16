@@ -3,11 +3,13 @@ package sleepyweasel.purplefluffernutter;
 import org.junit.Before;
 import org.junit.Test;
 
+import sleepyweasel.purplefluffernutter.storage.StorageUtils;
+
 import static org.assertj.core.api.Assertions.*;
 
 public class MovieEntryStorageTest {
 
-    private MovieEntryStorage storage = new MovieEntryStorageVolatile();
+    private MovieEntryStorage storage = StorageUtils.getMovieStorage();
 
     private static final String MOVIE_TITLE_1 = "title 1";
     private static final String MOVIE_TITLE_2 = "title 2";
@@ -96,7 +98,7 @@ public class MovieEntryStorageTest {
     public void shouldGetOnlyOneStorageInstance() throws Exception {
         storage.addMovie(firstEntry);
 
-        MovieEntryStorage anotherStorage = new MovieEntryStorageVolatile();
+        MovieEntryStorage anotherStorage = StorageUtils.getMovieStorage();
 
         MovieEntry entry = anotherStorage.getEntryByTitle(firstEntry.getTitle());
         assertThat(entry).isEqualTo(firstEntry);

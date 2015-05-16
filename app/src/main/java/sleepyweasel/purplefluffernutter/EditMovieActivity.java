@@ -11,6 +11,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 
 public class EditMovieActivity extends ActionBarActivity {
@@ -67,7 +68,7 @@ public class EditMovieActivity extends ActionBarActivity {
     public void addNewMovieToStorage() {
         String movieTitle = titleText.getText().toString();
         MovieEntry movieEntry = new MovieEntry(movieTitle);
-        MovieEntryStorageVolatile storage = new MovieEntryStorageVolatile();
+        MovieEntryStorage storage = StorageUtils.getMovieStorage();
         storage.addMovie(movieEntry);
     }
 
