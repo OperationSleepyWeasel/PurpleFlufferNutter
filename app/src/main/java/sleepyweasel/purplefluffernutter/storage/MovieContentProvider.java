@@ -17,6 +17,9 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
 
     @Override
     public boolean onCreate() {
+        Context context = getContext();
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        database = databaseHelper.getWritableDatabase();
         return (database != null);
     }
 
@@ -78,5 +81,29 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         return 0;
+    }
+
+    private SQLiteDatabase database;
+
+    private static class DatabaseHelper extends SQLiteOpenHelper {
+
+        private static final int DATABASE_VERSION = 1;
+        private static final String DATABASE_NAME = "Repository";
+        private static final String CREATE_DB_TABLE = " CREATE TABLE movies (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, year TEXT NOT NULL);";
+
+        public DatabaseHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL(CREATE_DB_TABLE);
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            db.execSQL("DROP TABLE IF EXISTS movies");
+            onCreate(db);
+        }
     }
 }
