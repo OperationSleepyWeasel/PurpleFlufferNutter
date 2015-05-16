@@ -1,4 +1,4 @@
-package sleepyweasel.purplefluffernutter.dummy.retrofit.deserializers;
+package sleepyweasel.purplefluffernutter.rest.deserializers;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

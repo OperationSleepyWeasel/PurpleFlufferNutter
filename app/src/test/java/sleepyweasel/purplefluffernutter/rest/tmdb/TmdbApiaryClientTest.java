@@ -1,33 +1,18 @@
-package sleepyweasel.purplefluffernutter.dummy.retrofit;
-
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.internal.bind.DateTypeAdapter;
+package sleepyweasel.purplefluffernutter.rest.tmdb;
 
 import org.junit.Test;
 
-import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import retrofit.RestAdapter;
-import retrofit.converter.GsonConverter;
-import sleepyweasel.purplefluffernutter.dummy.retrofit.deserializers.DateDeserializer;
+import sleepyweasel.purplefluffernutter.components.DaggerTmdbComponent;
+import sleepyweasel.purplefluffernutter.components.TmdbComponent;
+import sleepyweasel.purplefluffernutter.modules.TmdbModule;
+import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TmdbApiaryClientTest {
-    //i am not sure how long does it last
-    private static final String TMDB_APIARY_URL = "http://private-anon-975b18d78-themoviedb.apiary-mock.com/3";
     private static final String QUERY = "whatever";
 
     private static final Integer TOTAL_PAGES = 1;
@@ -37,17 +22,10 @@ public class TmdbApiaryClientTest {
     private static final String FIRST_MOVIE_TITLE = "Fight Club";
     private static final Date FIRST_MOVIE_RELEASE_DATE = new GregorianCalendar(1999, 9, 14).getTime();
 
-    private Gson gson = new GsonBuilder()
-        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        .registerTypeAdapter(Date.class, new DateDeserializer())
-        .create();
-
-    private RestAdapter restAdapter = new RestAdapter.Builder()
-        .setEndpoint(TMDB_APIARY_URL)
-        .setConverter(new GsonConverter(gson))
+    TmdbComponent component = DaggerTmdbComponent.builder()
+        .tmdbModule(new TmdbModule(TmdbModule.TMDB_APIARY_URL))
         .build();
-
-    private TmdbApiary tmdbApiary = restAdapter.create(TmdbApiary.class);
+    private Tmdb tmdbApiary = component.provideTmdb();
 
     @Test
     public void shouldReturnNumberOfPages() {
