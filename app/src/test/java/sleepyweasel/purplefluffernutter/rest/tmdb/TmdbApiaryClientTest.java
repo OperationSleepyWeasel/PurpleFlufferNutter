@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import sleepyweasel.purplefluffernutter.components.DaggerTmdbComponent;
 import sleepyweasel.purplefluffernutter.components.TmdbComponent;
 import sleepyweasel.purplefluffernutter.modules.TmdbModule;
+import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Configuration;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,6 +22,16 @@ public class TmdbApiaryClientTest {
     private static final Integer FIRST_MOVIE_ID = 550;
     private static final String FIRST_MOVIE_TITLE = "Fight Club";
     private static final Date FIRST_MOVIE_RELEASE_DATE = new GregorianCalendar(1999, 9, 14).getTime();
+    private static final String BASE_URL = "http://image.tmdb.org/t/p/";
+    private static final String[] POSTER_SIZES = {
+        "w92",
+        "w154",
+        "w185",
+        "w342",
+        "w500",
+        "w780",
+        "original"
+    };
 
     TmdbComponent component = DaggerTmdbComponent.builder()
         .tmdbModule(new TmdbModule(TmdbModule.TMDB_APIARY_URL))
@@ -63,5 +74,13 @@ public class TmdbApiaryClientTest {
         Result firstMovie = tmdbApiary.searchMovie(QUERY).getResults().get(0);
 
         assertThat(firstMovie.getOriginalTitle()).isEqualTo(FIRST_MOVIE_TITLE);
+    }
+    
+    @Test
+    public void shouldReturnConfiguration() {
+        Configuration configuration = tmdbApiary.getConfiguration();
+        
+        assertThat(configuration.getImages().getBaseUrl()).isEqualTo(BASE_URL);
+        assertThat(configuration.getImages().getPosterSizes()).containsExactly(POSTER_SIZES);
     }
 }

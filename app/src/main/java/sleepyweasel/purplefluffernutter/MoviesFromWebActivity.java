@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import org.parceler.Parcels;
 
 import sleepyweasel.purplefluffernutter.adapters.MoviesSearchResultAdapter;
+import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Configuration;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.SearchResult;
 
 
@@ -22,7 +23,8 @@ public class MoviesFromWebActivity extends ListActivity {
         setContentView(R.layout.activity_movies_from_web);
 
         searchResult = Parcels.unwrap(this.getIntent().getExtras().getParcelable(AddMovieActivity.FOUND_MOVIES_ID));
-        moviesSearchResultAdapter = new MoviesSearchResultAdapter(this, R.layout.movie_search_result, searchResult.getResults());
+        Configuration configuration = ((PurpleFlufferNutterApplication) getApplication()).getConfiguration();
+        moviesSearchResultAdapter = new MoviesSearchResultAdapter(this, R.layout.movie_search_result, searchResult.getResults(), configuration);
         setListAdapter(moviesSearchResultAdapter);
     }
 
