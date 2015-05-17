@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -40,6 +43,7 @@ public class MoviesSearchResultAdapter extends ArrayAdapter<Result> {
 
         holder.titleView.setText(result.getTitle());
         holder.releaseDateView.setText(result.getReleaseDate() != null ? result.getReleaseDate().toString() : "?");
+        Picasso.with(getContext()).load("http://image.tmdb.org/t/p/w185/ZPMhHXEhYB33YoTZZNNmezth0V.jpg").into(holder.posterImage);
 
         return view;
     }
@@ -47,6 +51,7 @@ public class MoviesSearchResultAdapter extends ArrayAdapter<Result> {
     static class ViewHolder {
         @InjectView(R.id.movieResultTitle) TextView titleView;
         @InjectView(R.id.movieResultReleaseDate) TextView releaseDateView;
+        @InjectView(R.id.moviePoster) ImageView posterImage;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
