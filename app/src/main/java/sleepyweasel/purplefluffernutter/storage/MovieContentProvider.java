@@ -4,9 +4,11 @@ import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 import java.util.ArrayList;
@@ -102,7 +104,18 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        return null;
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(MOVIES_TABLE_NAME);
+        UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        uriMatcher.addURI(PROVIDER_NAME, "movies", 1);
+        if (uriMatcher.match(uri) == 1) {
+            Cursor cursor = queryBuilder.query(database, projection, selection, selectionArgs, null, null, sortOrder);
+            cursor.setNotificationUri(getContext().getContentResolver(), uri);
+            return cursor;
+        }
+        else {
+            return null;
+        }
     }
 
     @Override
