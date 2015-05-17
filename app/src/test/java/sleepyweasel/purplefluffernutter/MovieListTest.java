@@ -8,22 +8,28 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowContentResolver;
+
+import sleepyweasel.purplefluffernutter.storage.MovieContentProvider;
+import sleepyweasel.purplefluffernutter.storage.MovieEntryStorage;
+import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.Assert.*;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class MovieListTest {
 
-    private MovieContentProvider contentProvider;
+    private MovieEntryStorage storage = StorageUtils.getMovieStorage();
 
     private static final String MOVIE_TITLE = "Movie title";
+    private static final int MOVIE_YEAR = 1994;
 
     @Before
     public void setUp() {
-        contentProvider = MovieContentProvider.getInstance();
-        contentProvider.clear();
+        ShadowContentResolver.registerProvider(MovieContentProvider.PROVIDER_NAME, (MovieContentProvider) storage);
+        ((MovieContentProvider) storage).onCreate();
+        storage.clear();
     }
 
     private ListAdapter getListAdapter() {
@@ -40,7 +46,7 @@ public class MovieListTest {
 
     @Test
     public void shouldNotBeEmptyWhenNewItemAdded() throws Exception {
-        contentProvider.addMovie(new MovieEntry(MOVIE_TITLE));
+        storage.addMovie(new MovieEntry(MOVIE_TITLE, MOVIE_YEAR));
 
         ListAdapter adapter = getListAdapter();
         assertThat(adapter.isEmpty()).isFalse();
@@ -48,7 +54,7 @@ public class MovieListTest {
 
     @Test
     public void shouldDisplayMovieTitleAsListElementLabel() throws Exception {
-        contentProvider.addMovie(new MovieEntry(MOVIE_TITLE));
+        storage.addMovie(new MovieEntry(MOVIE_TITLE, MOVIE_YEAR));
 
         ListAdapter adapter = getListAdapter();
         String label = adapter.getItem(0).toString();

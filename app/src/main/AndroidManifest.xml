@@ -67,6 +67,10 @@
             android:name=".MoviesFromWebActivity"
             android:label="@string/title_activity_movies_from_web" >
         </activity>
+        <provider
+            android:authorities="sleepyweasel.purplefluffernutter.MoviesProvider"
+            android:name=".storage.MovieContentProvider" >
+        </provider>
     </application>
 
 </manifest>

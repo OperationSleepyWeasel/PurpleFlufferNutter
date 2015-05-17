@@ -43,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_year_value"
                 android:layout_weight="1"
-                android:inputType="text" />
+                android:inputType="numberDecimal"
+                android:text="0" />
         </LinearLayout>
 
         <LinearLayout
