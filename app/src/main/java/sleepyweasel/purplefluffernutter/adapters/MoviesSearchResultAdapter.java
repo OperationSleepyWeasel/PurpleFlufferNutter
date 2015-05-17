@@ -15,15 +15,19 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import sleepyweasel.purplefluffernutter.R;
+import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Configuration;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
+import sleepyweasel.purplefluffernutter.rest.utils.ImageUrlBuilder;
 
 public class MoviesSearchResultAdapter extends ArrayAdapter<Result> {
 
     List<Result> results;
+    private Configuration configuration;
 
-    public MoviesSearchResultAdapter(Context context, int textViewResourceId, List<Result> results) {
+    public MoviesSearchResultAdapter(Context context, int textViewResourceId, List<Result> results, Configuration configuration) {
         super(context, textViewResourceId, results);
         this.results = results;
+        this.configuration = configuration;
     }
 
     @Override
@@ -43,7 +47,8 @@ public class MoviesSearchResultAdapter extends ArrayAdapter<Result> {
 
         holder.titleView.setText(result.getTitle());
         holder.releaseDateView.setText(result.getReleaseDate() != null ? result.getReleaseDate().toString() : "?");
-        Picasso.with(getContext()).load("http://image.tmdb.org/t/p/w185/ZPMhHXEhYB33YoTZZNNmezth0V.jpg").into(holder.posterImage);
+        String url = new ImageUrlBuilder().buildImageUrlFor(result, configuration);
+        Picasso.with(getContext()).load(url).into(holder.posterImage);
 
         return view;
     }
