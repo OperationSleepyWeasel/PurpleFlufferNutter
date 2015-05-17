@@ -50,6 +50,7 @@ dependencies {
     //apt "org.projectlombok:lombok:1.16.2"
     //but lombok does not work with parceler:
     //https://github.com/johncarl81/parceler/issues/41
+    //we can try making fields protected and setting serialization to FIELD, this will make parcel not need getters and setters
 
     compile 'com.jakewharton:butterknife:6.1.0'
 
