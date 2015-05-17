@@ -14,7 +14,6 @@ import android.net.Uri;
 import java.util.ArrayList;
 
 import sleepyweasel.purplefluffernutter.MovieEntry;
-import sleepyweasel.purplefluffernutter.MovieEntryStorage;
 
 public class MovieContentProvider extends ContentProvider implements MovieEntryStorage {
 

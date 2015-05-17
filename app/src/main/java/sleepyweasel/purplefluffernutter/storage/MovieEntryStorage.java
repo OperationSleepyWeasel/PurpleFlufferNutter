@@ -1,8 +1,10 @@
-package sleepyweasel.purplefluffernutter;
+package sleepyweasel.purplefluffernutter.storage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import sleepyweasel.purplefluffernutter.MovieEntry;
 
 public interface MovieEntryStorage {
 

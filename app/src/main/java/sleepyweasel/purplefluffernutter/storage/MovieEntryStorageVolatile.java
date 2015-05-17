@@ -1,9 +1,11 @@
-package sleepyweasel.purplefluffernutter;
+package sleepyweasel.purplefluffernutter.storage;
 
 import java.util.ArrayList;
 import java.util.Map;
 
+import sleepyweasel.purplefluffernutter.MovieEntry;
 import sleepyweasel.purplefluffernutter.storage.LightStorage;
+import sleepyweasel.purplefluffernutter.storage.MovieEntryStorage;
 
 public class MovieEntryStorageVolatile implements MovieEntryStorage {
 

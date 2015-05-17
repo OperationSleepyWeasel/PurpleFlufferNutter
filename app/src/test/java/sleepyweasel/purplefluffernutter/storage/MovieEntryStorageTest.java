@@ -1,17 +1,17 @@
-package sleepyweasel.purplefluffernutter;
-
-import android.content.ContentUris;
+package sleepyweasel.purplefluffernutter.storage;
 
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowContentResolver;
 
+import sleepyweasel.purplefluffernutter.BuildConfig;
+import sleepyweasel.purplefluffernutter.MovieEntry;
 import sleepyweasel.purplefluffernutter.storage.MovieContentProvider;
+import sleepyweasel.purplefluffernutter.storage.MovieEntryStorage;
 import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 import static org.assertj.core.api.Assertions.*;

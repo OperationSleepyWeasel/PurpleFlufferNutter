@@ -13,6 +13,7 @@ import org.robolectric.shadows.ShadowContentResolver;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import sleepyweasel.purplefluffernutter.storage.MovieContentProvider;
+import sleepyweasel.purplefluffernutter.storage.MovieEntryStorage;
 import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 import static org.assertj.core.api.Assertions.*;

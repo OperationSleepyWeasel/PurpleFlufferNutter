@@ -4,7 +4,7 @@ public class MovieEntry {
     private String title;
     private int year;
 
-    MovieEntry(String title, int year) {
+    public MovieEntry(String title, int year) {
         this.title = title;
         this.year = year;
     }
