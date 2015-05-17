@@ -52,12 +52,6 @@ public class MovieContentProviderTest {
         return uri;
     }
 
-    private MovieEntry createMovieEntryFromCursorData(Cursor cursor) {
-        String titleValue = cursor.getString(cursor.getColumnIndex(MovieContentProvider.TITLE_COLUMN_NAME));
-        int yearValue = cursor.getInt(cursor.getColumnIndex(MovieContentProvider.YEAR_COLUMN_NAME));
-        return new MovieEntry(titleValue, yearValue);
-    }
-
     @Test
     public void shouldCreateWriteableDatabaseOnCreation() {
         assertThat(storage.onCreate()).isTrue();
@@ -83,7 +77,7 @@ public class MovieContentProviderTest {
 
         int idValue = cursor.getInt(cursor.getColumnIndex(MovieContentProvider._ID_COLUMN_NAME));
         assertThat(idValue).isEqualTo(1);
-        MovieEntry entry = createMovieEntryFromCursorData(cursor);
+        MovieEntry entry = MovieContentProvider.createMovieEntryFromCursorData(cursor);
         assertThat(entry).isEqualTo(firstEntry);
     }
 
@@ -95,10 +89,10 @@ public class MovieContentProviderTest {
         Cursor cursor = storage.query(uri, null, null, null, null);
 
         cursor.moveToFirst();
-        MovieEntry entry = createMovieEntryFromCursorData(cursor);
+        MovieEntry entry = MovieContentProvider.createMovieEntryFromCursorData(cursor);
         assertThat(entry).isEqualTo(firstEntry);
         cursor.moveToNext();
-        entry = createMovieEntryFromCursorData(cursor);
+        entry = MovieContentProvider.createMovieEntryFromCursorData(cursor);
         assertThat(entry).isEqualTo(secondEntry);
     }
 }

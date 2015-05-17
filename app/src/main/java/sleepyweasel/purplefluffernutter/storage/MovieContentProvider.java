@@ -67,7 +67,7 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
 
     @Override
     public boolean isEmpty() {
-        return true;
+        return size() == 0;
     }
 
     @Override
@@ -80,12 +80,26 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
 
     @Override
     public int size() {
-        return 0;
+        Cursor cursor = query(CONTENT_URI, null, null, null, null);
+        return cursor.getCount();
     }
 
     @Override
     public MovieEntry getEntry(int id) {
+        Cursor cursor = query(CONTENT_URI, null, null, null, null);
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            int idValue = cursor.getInt(cursor.getColumnIndex(_ID_COLUMN_NAME));
+            if (idValue == id) {
+                return createMovieEntryFromCursorData(cursor);
+            }
+        }
         return null;
+    }
+
+    public static MovieEntry createMovieEntryFromCursorData(Cursor cursor) {
+        String titleValue = cursor.getString(cursor.getColumnIndex(MovieContentProvider.TITLE_COLUMN_NAME));
+        int yearValue = cursor.getInt(cursor.getColumnIndex(MovieContentProvider.YEAR_COLUMN_NAME));
+        return new MovieEntry(titleValue, yearValue);
     }
 
     @Override

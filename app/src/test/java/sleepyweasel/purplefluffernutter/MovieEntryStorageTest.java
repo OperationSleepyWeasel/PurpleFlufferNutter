@@ -31,7 +31,7 @@ public class MovieEntryStorageTest {
 
     @Before
     public void setUp() throws Exception {
-        ShadowContentResolver.registerProvider("sleepyweasel.purplefluffernutter.MoviesProvider", (MovieContentProvider) storage);
+        ShadowContentResolver.registerProvider(MovieContentProvider.PROVIDER_NAME, (MovieContentProvider) storage);
         ((MovieContentProvider) storage).onCreate();
         storage.clear();
     }
@@ -74,7 +74,7 @@ public class MovieEntryStorageTest {
     public void shouldGetMovieEntryById() throws Exception {
         storage.addMovie(firstEntry);
 
-        MovieEntry entry = storage.getEntry(0);
+        MovieEntry entry = storage.getEntry(1);
 
         assertThat(entry).isEqualTo(firstEntry);
     }
@@ -84,7 +84,7 @@ public class MovieEntryStorageTest {
         storage.addMovie(firstEntry);
         storage.addMovie(secondEntry);
 
-        MovieEntry entry = storage.getEntry(1);
+        MovieEntry entry = storage.getEntry(2);
 
         assertThat(entry).isEqualTo(secondEntry);
     }
