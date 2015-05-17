@@ -104,6 +104,13 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
 
     @Override
     public MovieEntry getEntryByTitle(String movieTitle) {
+        Cursor cursor = query(CONTENT_URI, null, null, null, null);
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            String titleValue = cursor.getString(cursor.getColumnIndex(MovieContentProvider.TITLE_COLUMN_NAME));
+            if (titleValue.equals(movieTitle)) {
+                return createMovieEntryFromCursorData(cursor);
+            }
+        }
         return null;
     }
 
