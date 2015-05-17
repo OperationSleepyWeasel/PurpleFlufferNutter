@@ -14,7 +14,7 @@ public class PurpleFlufferNutterApplication extends Application {
         super.onCreate();
 
         tmdbComponent = DaggerTmdbComponent.builder()
-            .tmdbModule(new TmdbModule(TmdbModule.TMDB_APIARY_URL))
+            .tmdbModule(new TmdbModule(TmdbModule.TMDB_URL))
             .build();
     }
 
