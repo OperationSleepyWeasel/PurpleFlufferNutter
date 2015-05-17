@@ -1,5 +1,6 @@
 package sleepyweasel.purplefluffernutter;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import sleepyweasel.purplefluffernutter.storage.MovieContentProvider;
 import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 
@@ -72,8 +74,12 @@ public class EditMovieActivity extends ActionBarActivity {
         String movieYearString = yearValue.getText().toString();
         int movieYear = Integer.parseInt(movieYearString);
         MovieEntry movieEntry = new MovieEntry(movieTitle, movieYear);
-        MovieEntryStorage storage = StorageUtils.getMovieStorage();
-        storage.addMovie(movieEntry);
+//        MovieEntryStorage storage = StorageUtils.getMovieStorage();
+//        storage.addMovie(movieEntry);
+        ContentValues values = new ContentValues();
+        values.put(MovieContentProvider.TITLE_COLUMN_NAME, movieEntry.getTitle());
+        values.put(MovieContentProvider.YEAR_COLUMN_NAME, movieEntry.getYear());
+        getContentResolver().insert(MovieContentProvider.CONTENT_URI, values);
     }
 
     public void goToDetail() {

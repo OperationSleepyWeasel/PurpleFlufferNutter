@@ -8,9 +8,11 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowContentResolver;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import sleepyweasel.purplefluffernutter.storage.MovieContentProvider;
 import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 import static org.assertj.core.api.Assertions.*;
@@ -32,6 +34,8 @@ public class EditMovieActivityTest {
 
     MovieEntryStorage getEmptyStorage() {
         MovieEntryStorage storage = StorageUtils.getMovieStorage();
+        ShadowContentResolver.registerProvider(MovieContentProvider.PROVIDER_NAME, (MovieContentProvider) storage);
+        ((MovieContentProvider) storage).onCreate();
         storage.clear();
         return storage;
     }
@@ -48,7 +52,7 @@ public class EditMovieActivityTest {
         saveButton.performClick();
 
         assertThat(storage.size()).isEqualTo(1);
-        MovieEntry entry = storage.getEntry(0);
+        MovieEntry entry = storage.getEntry(1);
         assertThat(entry.getTitle()).isEqualTo(movieTitle);
         assertThat(entry.getYear()).isEqualTo(movieYear);
     }
@@ -57,9 +61,10 @@ public class EditMovieActivityTest {
     public void shouldSaveMovieWithYearZeroIfEditFieldWasLeftEmpty() throws Exception {
         initActivity();
         MovieEntryStorage storage = getEmptyStorage();
+        movieTitleTextView.setText("title");
         saveButton.performClick();
 
-        MovieEntry entry = storage.getEntry(0);
+        MovieEntry entry = storage.getEntry(1);
         assertThat(entry.getYear()).isZero();
     }
 

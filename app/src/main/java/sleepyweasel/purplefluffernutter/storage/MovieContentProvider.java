@@ -21,7 +21,7 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
     public static final String PROVIDER_NAME = "sleepyweasel.purplefluffernutter.MoviesProvider";
 
     private static final String URL = "content://" + PROVIDER_NAME + "/movies";
-    private static final Uri CONTENT_URI = Uri.parse(URL);
+    public static final Uri CONTENT_URI = Uri.parse(URL);
 
     private SQLiteDatabase database;
 
@@ -116,12 +116,19 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
 
     @Override
     public void clear() {
-
+        database.execSQL("DELETE FROM " + MOVIES_TABLE_NAME);
+//        delete(CONTENT_URI,null,null);
     }
 
     @Override
     public ArrayList<String> getMovieTitles() {
-        return null;
+        ArrayList<String> movieTitles = new ArrayList<>();
+        Cursor cursor = query(CONTENT_URI, null, null, null, null);
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            String titleValue = cursor.getString(cursor.getColumnIndex(MovieContentProvider.TITLE_COLUMN_NAME));
+            movieTitles.add(titleValue);
+        }
+        return movieTitles;
     }
 
     @Override
@@ -158,7 +165,14 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+        UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        uriMatcher.addURI(PROVIDER_NAME, "movies", 1);
+        if (uriMatcher.match(uri) == 1) {
+            return database.delete(MOVIES_TABLE_NAME,selection, selectionArgs);
+        }
+        else {
+            return 0;
+        }
     }
 
     @Override

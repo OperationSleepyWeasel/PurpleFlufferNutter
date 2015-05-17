@@ -8,7 +8,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowContentResolver;
 
+import sleepyweasel.purplefluffernutter.storage.MovieContentProvider;
 import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 import static org.assertj.core.api.Assertions.*;
@@ -17,14 +19,15 @@ import static org.assertj.core.api.Assertions.*;
 @Config(constants = BuildConfig.class)
 public class MovieListTest {
 
-    private MovieEntryStorage storage;
+    private MovieEntryStorage storage = StorageUtils.getMovieStorage();
 
     private static final String MOVIE_TITLE = "Movie title";
     private static final int MOVIE_YEAR = 1994;
 
     @Before
     public void setUp() {
-        storage = StorageUtils.getMovieStorage();
+        ShadowContentResolver.registerProvider(MovieContentProvider.PROVIDER_NAME, (MovieContentProvider) storage);
+        ((MovieContentProvider) storage).onCreate();
         storage.clear();
     }
 
