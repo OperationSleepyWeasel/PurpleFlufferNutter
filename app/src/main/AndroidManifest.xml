@@ -2,14 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sleepyweasel.purplefluffernutter" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".PurpleFlufferNutterApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".PurpleFlufferNutterApplication" >
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -62,6 +62,10 @@
         <activity
             android:name=".EditMovieActivity"
             android:label="@string/title_activity_edit_movie" >
+        </activity>
+        <activity
+            android:name=".MoviesFromWebActivity"
+            android:label="@string/title_activity_movies_from_web" >
         </activity>
     </application>
 
