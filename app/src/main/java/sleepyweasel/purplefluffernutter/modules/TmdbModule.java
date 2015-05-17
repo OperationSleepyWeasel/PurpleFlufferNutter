@@ -10,6 +10,7 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
+import sleepyweasel.purplefluffernutter.rest.interceptors.TmdbApiKeyRequestInterceptor;
 import sleepyweasel.purplefluffernutter.rest.tmdb.Tmdb;
 import sleepyweasel.purplefluffernutter.rest.deserializers.DateDeserializer;
 
@@ -17,6 +18,9 @@ import sleepyweasel.purplefluffernutter.rest.deserializers.DateDeserializer;
 public class TmdbModule {
     //i am not sure how long does it last
     public static final String TMDB_APIARY_URL = "http://private-anon-975b18d78-themoviedb.apiary-mock.com/3";
+    public static final String TMDB_URL = "http://api.themoviedb.org/3";
+
+    public static final String API_KEY = "8ec7476e88d48365fd343370b9947b76";
 
     private String url;
 
@@ -30,16 +34,22 @@ public class TmdbModule {
     }
 
     @Provides
-    RestAdapter provideRestAdapter(GsonConverter gsonConverter) {
+    RestAdapter provideRestAdapter(GsonConverter gsonConverter, TmdbApiKeyRequestInterceptor interceptor) {
         return new RestAdapter.Builder()
             .setEndpoint(url)
             .setConverter(gsonConverter)
+            .setRequestInterceptor(interceptor)
             .build();
     }
 
     @Provides
     GsonConverter provideGsonConverter(Gson gson) {
         return new GsonConverter(gson);
+    }
+
+    @Provides
+    TmdbApiKeyRequestInterceptor provideTmdbApiKeyRequestInterceptor() {
+        return new TmdbApiKeyRequestInterceptor(API_KEY);
     }
 
     @Provides
@@ -53,9 +63,5 @@ public class TmdbModule {
     @Provides
     DateDeserializer provideDateDeserializer() {
         return new DateDeserializer();
-    }
-
-    public String getUrl() {
-        return url;
     }
 }
