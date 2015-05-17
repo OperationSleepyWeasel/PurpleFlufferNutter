@@ -25,8 +25,9 @@ public class MovieContentProvider extends ContentProvider implements MovieEntryS
 
     private SQLiteDatabase database;
 
-    static final String TITLE_COLUMN_NAME = "title";
-    static final String YEAR_COLUMN_NAME = "year";
+    public static final String _ID_COLUMN_NAME = "_id";
+    public static final String TITLE_COLUMN_NAME = "title";
+    public static final String YEAR_COLUMN_NAME = "year";
 
     private static final String MOVIES_TABLE_NAME = "movies";
 
