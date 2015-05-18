@@ -1,9 +1,11 @@
 package sleepyweasel.purplefluffernutter;
 
+import com.orm.SugarRecord;
+
 import org.parceler.Parcel;
 
 @Parcel(Parcel.Serialization.BEAN)
-public class MovieEntry {
+public class MovieEntry extends SugarRecord<MovieEntry> {
     private String title;
     private int year;
 

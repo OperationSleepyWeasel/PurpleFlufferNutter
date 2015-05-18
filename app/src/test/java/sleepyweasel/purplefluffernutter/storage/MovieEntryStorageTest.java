@@ -1,14 +1,22 @@
 package sleepyweasel.purplefluffernutter.storage;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowContentResolver;
 
 import sleepyweasel.purplefluffernutter.BuildConfig;
+import sleepyweasel.purplefluffernutter.MainActivity;
 import sleepyweasel.purplefluffernutter.MovieEntry;
 import sleepyweasel.purplefluffernutter.storage.MovieContentProvider;
 import sleepyweasel.purplefluffernutter.storage.MovieEntryStorage;
@@ -30,11 +38,46 @@ public class MovieEntryStorageTest {
     private MovieEntry firstEntry = new MovieEntry(MOVIE_TITLE_1, MOVIE_YEAR_1);
     private MovieEntry secondEntry = new MovieEntry(MOVIE_TITLE_2, MOVIE_YEAR_2);
 
+    private static class DatabaseHelper extends SQLiteOpenHelper {
+
+        private static final int DATABASE_VERSION = 1;
+        private static final String DATABASE_NAME = "movie_database.db";
+        private static final String ID_COLUMN = "id INTEGER PRIMARY KEY AUTOINCREMENT";
+        private static final String TITLE_COLUMN = " title TEXT NOT NULL";
+        private static final String YEAR_COLUMN = " year INTEGER NOT NULL";
+
+        public DatabaseHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            String CREATE_DB_TABLE = " CREATE TABLE MOVIE_ENTRY" +
+                    " ( " + ID_COLUMN + ", " + TITLE_COLUMN + ", " + YEAR_COLUMN + ");";
+            db.execSQL(CREATE_DB_TABLE);
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        }
+    }
+
+    private DatabaseHelper databaseHelper;
+    private SQLiteDatabase database;
+
     @Before
     public void setUp() throws Exception {
-        ShadowContentResolver.registerProvider(MovieContentProvider.PROVIDER_NAME, (MovieContentProvider) storage);
-        ((MovieContentProvider) storage).onCreate();
+        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+        databaseHelper = new DatabaseHelper(activity.getBaseContext());
+        database = databaseHelper.getWritableDatabase();
+//        ShadowContentResolver.registerProvider(MovieContentProvider.PROVIDER_NAME, (MovieContentProvider) storage);
+//        ((MovieContentProvider) storage).onCreate();
         storage.clear();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        databaseHelper.close();
     }
 
     @Test
@@ -66,7 +109,7 @@ public class MovieEntryStorageTest {
     @Test
     public void shouldReturnSizeTwoForStorageWithTwoMovies() throws Exception {
         storage.addMovie(firstEntry);
-        storage.addMovie(firstEntry);
+        storage.addMovie(secondEntry);
 
         assertThat(storage.size()).isEqualTo(2);
     }
