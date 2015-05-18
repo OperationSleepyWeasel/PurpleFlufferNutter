@@ -70,17 +70,22 @@ public class MovieDetailActivity extends ActionBarActivity {
             //
 //            NavUtils.navigateUpTo(this, new Intent(this, MovieListActivity.class));
 //            return true;
-            Intent i = new Intent(getApplicationContext(), MovieListActivity.class);
+            Intent i = new Intent(getApplicationContext(), AddMovieActivity.class);
             startActivity(i);
             return true;
         }
-        if (id == R.id.action_settings) {
-            Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivity(i);
-            return true;
-        }
-        if (id == R.id.action_edit_movie) {
+        else if (id == R.id.action_edit_movie) {
             Intent i = new Intent(getApplicationContext(), EditMovieActivity.class);
+            startActivity(i);
+            return true;
+        }
+        else if (id == R.id.action_main_menu) {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            return true;
+        }
+        else if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(i);
             return true;
         }
