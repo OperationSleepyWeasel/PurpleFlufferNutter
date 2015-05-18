@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.NavUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 
 
@@ -50,6 +51,13 @@ public class MovieDetailActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_movie_detail, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
@@ -60,7 +68,25 @@ public class MovieDetailActivity extends ActionBarActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            NavUtils.navigateUpTo(this, new Intent(this, MovieListActivity.class));
+//            NavUtils.navigateUpTo(this, new Intent(this, MovieListActivity.class));
+//            return true;
+            Intent i = new Intent(getApplicationContext(), AddMovieActivity.class);
+            startActivity(i);
+            return true;
+        }
+        else if (id == R.id.action_edit_movie) {
+            Intent i = new Intent(getApplicationContext(), EditMovieActivity.class);
+            startActivity(i);
+            return true;
+        }
+        else if (id == R.id.action_main_menu) {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            return true;
+        }
+        else if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(i);
             return true;
         }
         return super.onOptionsItemSelected(item);

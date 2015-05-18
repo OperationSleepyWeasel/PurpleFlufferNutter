@@ -1,6 +1,9 @@
 package sleepyweasel.purplefluffernutter;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
@@ -8,7 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
+import java.util.ArrayList;
+
 import sleepyweasel.purplefluffernutter.dummy.DummyContent;
+import sleepyweasel.purplefluffernutter.storage.MovieContentProvider;
+import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 /**
  * A list fragment representing a list of Movies. This fragment
@@ -72,11 +79,19 @@ public class MovieListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                DummyContent.ITEMS));
+//        MovieEntryStorage storage = StorageUtils.getMovieStorage();
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        ArrayList<String> movieTitles = new ArrayList<>();
+        String URL = "content://" + MovieContentProvider.PROVIDER_NAME + "/movies";
+        Uri CONTENT_URI = Uri.parse(URL);
+        Cursor cursor = contentResolver.query(CONTENT_URI, null, null, null, null);
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            String titleValue = cursor.getString(cursor.getColumnIndex(MovieContentProvider.TITLE_COLUMN_NAME));
+            movieTitles.add(titleValue);
+        }
+//        ArrayList<String> arrayList = storage.getMovieTitles();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, movieTitles);
+        setListAdapter(adapter);
     }
 
     @Override

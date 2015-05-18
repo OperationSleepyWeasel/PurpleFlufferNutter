@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">PurpleFlufferNutter</string>
     <string name="title_movie_detail">Movie Detail</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="movie_list">Movie list</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_summary">SummaryActivity</string>
+    <string name="title_activity_add_movie">AddMovieActivity</string>
+    <string name="title_activity_edit_movie">EditMovieActivity</string>
+    <string name="action_edit_movie">Edit movie</string>
+    <string name="title_activity_movies_from_web">MoviesFromWebActivity</string>
+    <string name="action_main_menu">Main menu</string>
 </resources>
