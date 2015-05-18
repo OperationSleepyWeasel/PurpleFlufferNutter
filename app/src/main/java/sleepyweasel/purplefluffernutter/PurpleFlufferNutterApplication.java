@@ -1,7 +1,7 @@
 package sleepyweasel.purplefluffernutter;
 
-import android.app.Application;
 import android.util.Log;
+import com.orm.SugarApp;
 
 import javax.inject.Inject;
 
@@ -14,7 +14,7 @@ import sleepyweasel.purplefluffernutter.modules.TmdbModule;
 import sleepyweasel.purplefluffernutter.rest.tmdb.Tmdb;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Configuration;
 
-public class PurpleFlufferNutterApplication extends Application {
+public class PurpleFlufferNutterApplication extends SugarApp {
     private TmdbComponent tmdbComponent;
     private Configuration configuration;
 
