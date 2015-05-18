@@ -9,12 +9,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.parceler.Parcels;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
 import sleepyweasel.purplefluffernutter.storage.MovieContentProvider;
-import sleepyweasel.purplefluffernutter.storage.StorageUtils;
-
 
 public class EditMovieActivity extends ActionBarActivity {
 
@@ -29,7 +33,18 @@ public class EditMovieActivity extends ActionBarActivity {
         ButterKnife.inject(this);
 
         Intent i = getIntent();
-        titleText.setText(i.getStringExtra(AddMovieActivity.MOVIE_TITLE_ID));
+
+        String movieTitle = i.getStringExtra(AddMovieActivity.MOVIE_TITLE_ID);
+        if (movieTitle != null) {
+            titleText.setText(movieTitle);
+        }
+
+        Result result = Parcels.unwrap(this.getIntent().getExtras().getParcelable(MoviesFromWebActivity.SELECTED_MOVIE_ID));
+        if (result != null) {
+            titleText.setText(result.getTitle());
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy");
+            yearValue.setText(formatter.print(new DateTime(result.getReleaseDate())));
+        }
     }
 
 

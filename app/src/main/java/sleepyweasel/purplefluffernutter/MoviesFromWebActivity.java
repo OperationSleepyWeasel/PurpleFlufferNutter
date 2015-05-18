@@ -1,9 +1,12 @@
 package sleepyweasel.purplefluffernutter;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 
 import org.parceler.Parcels;
 
@@ -13,6 +16,8 @@ import sleepyweasel.purplefluffernutter.rest.tmdb.domain.SearchResult;
 
 
 public class MoviesFromWebActivity extends ListActivity {
+
+    public static final String SELECTED_MOVIE_ID = "selected_movie_id";
 
     SearchResult searchResult;
     MoviesSearchResultAdapter moviesSearchResultAdapter;
@@ -43,5 +48,14 @@ public class MoviesFromWebActivity extends ListActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onListItemClick(ListView listView, View view, int position, long id) {
+        super.onListItemClick(listView, view, position, id);
+
+        Intent i = new Intent(getApplicationContext(), EditMovieActivity.class);
+        i.putExtra(SELECTED_MOVIE_ID, Parcels.wrap(searchResult.getResults().get(position)));
+        startActivity(i);
     }
 }
