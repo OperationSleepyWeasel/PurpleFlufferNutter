@@ -12,4 +12,5 @@
     <string name="title_activity_edit_movie">EditMovieActivity</string>
     <string name="action_edit_movie">Edit movie</string>
     <string name="title_activity_movies_from_web">MoviesFromWebActivity</string>
+    <string name="action_main_menu">Main menu</string>
 </resources>

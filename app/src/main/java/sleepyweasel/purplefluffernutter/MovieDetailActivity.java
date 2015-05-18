@@ -74,13 +74,18 @@ public class MovieDetailActivity extends ActionBarActivity {
             startActivity(i);
             return true;
         }
-        if (id == R.id.action_settings) {
-            Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+        else if (id == R.id.action_edit_movie) {
+            Intent i = new Intent(getApplicationContext(), EditMovieActivity.class);
             startActivity(i);
             return true;
         }
-        if (id == R.id.action_edit_movie) {
-            Intent i = new Intent(getApplicationContext(), EditMovieActivity.class);
+        else if (id == R.id.action_main_menu) {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            return true;
+        }
+        else if (id == R.id.action_settings) {
+            Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(i);
             return true;
         }
