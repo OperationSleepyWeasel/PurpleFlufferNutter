@@ -39,11 +39,13 @@ public class EditMovieActivity extends ActionBarActivity {
             titleText.setText(movieTitle);
         }
 
-        Result result = Parcels.unwrap(this.getIntent().getExtras().getParcelable(MoviesFromWebActivity.SELECTED_MOVIE_ID));
-        if (result != null) {
-            titleText.setText(result.getTitle());
-            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy");
-            yearValue.setText(formatter.print(new DateTime(result.getReleaseDate())));
+        if (this.getIntent().getExtras() != null) {
+            Result result = Parcels.unwrap(this.getIntent().getExtras().getParcelable(MoviesFromWebActivity.SELECTED_MOVIE_ID));
+            if (result != null) {
+                titleText.setText(result.getTitle());
+                DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy");
+                yearValue.setText(formatter.print(new DateTime(result.getReleaseDate())));
+            }
         }
     }
 
