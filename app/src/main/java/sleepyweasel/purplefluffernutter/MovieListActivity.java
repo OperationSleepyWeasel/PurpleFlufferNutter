@@ -2,7 +2,6 @@ package sleepyweasel.purplefluffernutter;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -51,6 +49,7 @@ public class MovieListActivity extends ActionBarActivity
     ListView drawerList;
 
     private ActionBarDrawerToggle drawerToggle;
+
     private String[] drawerItems;
 
     @Override
@@ -59,7 +58,13 @@ public class MovieListActivity extends ActionBarActivity
         setContentView(R.layout.navigation_drawer);
         ButterKnife.inject(this);
 
-        drawerItems = new String[]{"Add movie", "Summary", "Settings"};
+        drawerItems = new String[]{
+                getString(R.string.nav_item_name_movie_list),
+                getString(R.string.nav_item_name_add_movie),
+                getString(R.string.nav_item_name_summary),
+                getString(R.string.nav_item_name_settings)
+        };
+
         drawerList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, drawerItems));
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -156,18 +161,32 @@ public class MovieListActivity extends ActionBarActivity
     }
 
     private void selectItem(int position) {
-        Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show();
 
         // Highlight the selected item, update the title, and close the drawer
         drawerList.setItemChecked(position, true);
-        setTitle(drawerItems[position]);
-        drawerLayout.closeDrawer(drawerList);
-    }
 
-    @Override
-    public void onBackPressed() {
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(i);
+        String selectedOption = drawerItems[position];
+        setTitle(selectedOption);
+
+        if (selectedOption.equals(getString(R.string.nav_item_name_movie_list))) {
+            Intent i = new Intent(getApplicationContext(), MovieListActivity.class);
+            startActivity(i);
+        }
+        else if (selectedOption.equals(getString(R.string.nav_item_name_add_movie))) {
+            Intent i = new Intent(getApplicationContext(), AddMovieActivity.class);
+            startActivity(i);
+        }
+        else if (selectedOption.equals(getString(R.string.nav_item_name_summary))) {
+            Intent i = new Intent(getApplicationContext(), SummaryActivity.class);
+            startActivity(i);
+        }
+        else if (selectedOption.equals(getString(R.string.nav_item_name_settings))) {
+            Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(i);
+        }
+
+        drawerLayout.closeDrawer(drawerList);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

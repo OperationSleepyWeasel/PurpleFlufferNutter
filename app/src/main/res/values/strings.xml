@@ -17,4 +17,8 @@
     <string name="drawer_add_movie_web">Add movie from web</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="nav_item_name_summary">Summary</string>
+    <string name="nav_item_name_movie_list">Movie list</string>
+    <string name="nav_item_name_add_movie">Add movie</string>
+    <string name="nav_item_name_settings">Settings</string>
 </resources>
