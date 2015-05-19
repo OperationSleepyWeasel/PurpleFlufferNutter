@@ -8,10 +8,20 @@
     tools:context=".MovieListActivity">
 
     <!-- The main content view -->
-    <FrameLayout
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/movie_list"
+        android:name="sleepyweasel.purplefluffernutter.MovieListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        tools:context=".MovieListActivity"
+        tools:layout="@android:layout/list_content" />
+    <!--<FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"/>-->
     <!-- The navigation drawer -->
     <ListView
         android:id="@+id/left_drawer"

@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,7 +35,7 @@ import org.parceler.Parcels;
  * {@link MovieListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class MovieListActivity extends FragmentActivity
+public class MovieListActivity extends ActionBarActivity
         implements MovieListFragment.Callbacks {
 
     /**
@@ -58,7 +60,7 @@ public class MovieListActivity extends FragmentActivity
         ButterKnife.inject(this);
 
         drawerItems = new String[]{"Add movie", "Summary", "Settings"};
-        drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, drawerItems));
+        drawerList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, drawerItems));
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
@@ -85,18 +87,27 @@ public class MovieListActivity extends FragmentActivity
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-//                getActionBar().setTitle("Title");
+                getSupportActionBar().setTitle("Movie list");
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
-//                getActionBar().setTitle("Title");
+                getSupportActionBar().setTitle("Main menu");
             }
         };
 
         drawerLayout.setDrawerListener(drawerToggle);
 
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         // TODO: If exposing deep links into your app, handle intents here.
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_movie_detail, menu);
+        return true;
     }
 
     /**
