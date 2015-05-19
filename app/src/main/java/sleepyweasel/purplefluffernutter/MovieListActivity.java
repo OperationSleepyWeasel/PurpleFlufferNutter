@@ -59,13 +59,13 @@ public class MovieListActivity extends FragmentActivity
      * indicating that the item with the given ID was selected.
      */
     @Override
-    public void onItemSelected(String id) {
+    public void onItemSelected(MovieEntry entry) {
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putParcelable(MovieDetailFragment.MOVIE_ENTRY_ID, Parcels.wrap(MovieEntry.class, new MovieEntry("super film", 1992)));
+            arguments.putParcelable(MovieDetailFragment.MOVIE_ENTRY_ID, Parcels.wrap(MovieEntry.class, entry));
             MovieDetailFragment fragment = new MovieDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -76,7 +76,7 @@ public class MovieListActivity extends FragmentActivity
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, MovieDetailActivity.class);
-            detailIntent.putExtra(MovieDetailFragment.MOVIE_ENTRY_ID, Parcels.wrap(MovieEntry.class, new MovieEntry("super film", 1992)));
+            detailIntent.putExtra(MovieDetailFragment.MOVIE_ENTRY_ID, Parcels.wrap(MovieEntry.class, entry));
             startActivity(detailIntent);
         }
     }
