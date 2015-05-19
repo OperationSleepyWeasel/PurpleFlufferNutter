@@ -12,10 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.parceler.Parcels;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
-import org.parceler.Parcels;
 
 /**
  * An activity representing a list of Movies. This activity
@@ -111,7 +111,7 @@ public class MovieListActivity extends ActionBarActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_movie_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_movie_list, menu);
         return true;
     }
 
@@ -146,8 +146,8 @@ public class MovieListActivity extends ActionBarActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_main_menu) {
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        if (id == R.id.action_add_movie) {
+            Intent i = new Intent(getApplicationContext(), AddMovieActivity.class);
             startActivity(i);
             return true;
         }
@@ -160,9 +160,12 @@ public class MovieListActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void selectItem(int position) {
-//        Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show();
+    @Override
+    public void onBackPressed() {
+        drawerLayout.openDrawer(drawerList);
+    }
 
+    private void selectItem(int position) {
         // Highlight the selected item, update the title, and close the drawer
         drawerList.setItemChecked(position, true);
 
@@ -170,20 +173,16 @@ public class MovieListActivity extends ActionBarActivity
         setTitle(selectedOption);
 
         if (selectedOption.equals(getString(R.string.nav_item_name_movie_list))) {
-            Intent i = new Intent(getApplicationContext(), MovieListActivity.class);
-            startActivity(i);
+            goToMovieList();
         }
         else if (selectedOption.equals(getString(R.string.nav_item_name_add_movie))) {
-            Intent i = new Intent(getApplicationContext(), AddMovieActivity.class);
-            startActivity(i);
+            goToAddMovie();
         }
         else if (selectedOption.equals(getString(R.string.nav_item_name_summary))) {
-            Intent i = new Intent(getApplicationContext(), SummaryActivity.class);
-            startActivity(i);
+            goToSummary();
         }
         else if (selectedOption.equals(getString(R.string.nav_item_name_settings))) {
-            Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivity(i);
+            goToSettings();
         }
 
         drawerLayout.closeDrawer(drawerList);
@@ -194,6 +193,27 @@ public class MovieListActivity extends ActionBarActivity
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             selectItem(position);
         }
+    }
+
+    public void goToMovieList() {
+        Intent i = new Intent(getApplicationContext(), MovieListActivity.class);
+        startActivity(i);
+    }
+
+
+    public void goToAddMovie() {
+        Intent i = new Intent(getApplicationContext(), AddMovieActivity.class);
+        startActivity(i);
+    }
+
+    public void goToSummary() {
+        Intent i = new Intent(getApplicationContext(), SummaryActivity.class);
+        startActivity(i);
+    }
+
+    public void goToSettings() {
+        Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivity(i);
     }
 
 }
