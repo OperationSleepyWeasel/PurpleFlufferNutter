@@ -1,7 +1,6 @@
 package sleepyweasel.purplefluffernutter;
 
 import android.content.Intent;
-import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +16,9 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.SearchResult;
 import sleepyweasel.purplefluffernutter.rest.tmdb.Tmdb;
@@ -37,13 +39,7 @@ public class AddMovieActivity extends ActionBarActivity {
         setContentView(R.layout.activity_add_movie);
         ButterKnife.inject(this);
         ((PurpleFlufferNutterApplication) getApplication()).getTmdbComponent().inject(this);
-
-        //FIXME: temporary solution use async task:
-        //http://stackoverflow.com/questions/19266553/android-caused-by-android-os-networkonmainthreadexception
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,13 +81,21 @@ public class AddMovieActivity extends ActionBarActivity {
     public void findOnWeb() {
         Log.d("Debug : ", "findOnWeb");
 
-        SearchResult searchResult = tmdb.searchMovie(title.getText().toString());
+        tmdb.searchMovie(title.getText().toString(), new Callback<SearchResult>() {
+            @Override
+            public void success(SearchResult searchResult, Response response) {
+                printSearchResult(searchResult);
 
-        printSearchResult(searchResult);
+                Intent i = new Intent(getApplicationContext(), MoviesFromWebActivity.class);
+                i.putExtra(AddMovieActivity.FOUND_MOVIES_ID, Parcels.wrap(searchResult));
+                startActivity(i);
+            }
 
-        Intent i = new Intent(getApplicationContext(), MoviesFromWebActivity.class);
-        i.putExtra(AddMovieActivity.FOUND_MOVIES_ID, Parcels.wrap(searchResult));
-        startActivity(i);
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e("Error : ", "Failed to fetch movies list.");
+            }
+        });
     }
 
     private static void printSearchResult(SearchResult searchResult) {

@@ -1,8 +1,15 @@
 package sleepyweasel.purplefluffernutter;
 
+import org.parceler.Parcel;
+
+@Parcel(Parcel.Serialization.BEAN)
 public class MovieEntry {
     private String title;
     private int year;
+
+    //do not delete, required for @Parcel
+    public MovieEntry() {
+    }
 
     public MovieEntry(String title, int year) {
         this.title = title;
@@ -13,8 +20,16 @@ public class MovieEntry {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public int getYear() {
         return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     @Override

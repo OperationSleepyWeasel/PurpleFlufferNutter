@@ -12,10 +12,9 @@ import android.widget.ListView;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
-import sleepyweasel.purplefluffernutter.dummy.DummyContent;
 import sleepyweasel.purplefluffernutter.storage.MovieContentProvider;
-import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 /**
  * A list fragment representing a list of Movies. This fragment
@@ -45,6 +44,8 @@ public class MovieListFragment extends ListFragment {
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
+    private List<MovieEntry> entries;
+
     /**
      * A callback interface that all activities containing this fragment must
      * implement. This mechanism allows activities to be notified of item
@@ -54,7 +55,7 @@ public class MovieListFragment extends ListFragment {
         /**
          * Callback for when an item has been selected.
          */
-        public void onItemSelected(String id);
+        public void onItemSelected(MovieEntry entry);
     }
 
     /**
@@ -63,7 +64,7 @@ public class MovieListFragment extends ListFragment {
      */
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onItemSelected(String id) {
+        public void onItemSelected(MovieEntry entry) {
         }
     };
 
@@ -78,18 +79,19 @@ public class MovieListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: replace with a real list adapter.
-//        MovieEntryStorage storage = StorageUtils.getMovieStorage();
         ContentResolver contentResolver = getActivity().getContentResolver();
         ArrayList<String> movieTitles = new ArrayList<>();
+        entries = new ArrayList<>();
         String URL = "content://" + MovieContentProvider.PROVIDER_NAME + "/movies";
         Uri CONTENT_URI = Uri.parse(URL);
         Cursor cursor = contentResolver.query(CONTENT_URI, null, null, null, null);
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             String titleValue = cursor.getString(cursor.getColumnIndex(MovieContentProvider.TITLE_COLUMN_NAME));
+            int yearValue = cursor.getInt(cursor.getColumnIndex(MovieContentProvider.TITLE_COLUMN_NAME));
+
+            entries.add(new MovieEntry(titleValue, yearValue));
             movieTitles.add(titleValue);
         }
-//        ArrayList<String> arrayList = storage.getMovieTitles();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, movieTitles);
         setListAdapter(adapter);
     }
@@ -131,7 +133,7 @@ public class MovieListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(entries.get(position));
     }
 
     @Override

@@ -40,8 +40,7 @@ public class MovieDetailActivity extends ActionBarActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(MovieDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(MovieDetailFragment.ARG_ITEM_ID));
+            arguments.putParcelable(MovieDetailFragment.MOVIE_ENTRY_ID, getIntent().getParcelableExtra(MovieDetailFragment.MOVIE_ENTRY_ID));
             MovieDetailFragment fragment = new MovieDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -70,7 +69,7 @@ public class MovieDetailActivity extends ActionBarActivity {
             //
 //            NavUtils.navigateUpTo(this, new Intent(this, MovieListActivity.class));
 //            return true;
-            Intent i = new Intent(getApplicationContext(), AddMovieActivity.class);
+            Intent i = new Intent(getApplicationContext(), MovieListActivity.class);
             startActivity(i);
             return true;
         }
