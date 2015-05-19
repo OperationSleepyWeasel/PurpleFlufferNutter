@@ -1,8 +1,15 @@
 package sleepyweasel.purplefluffernutter;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class MovieEntry {
     private String title;
     private int year;
+
+    //do not delete, required for @Parcel
+    public MovieEntry() {
+    }
 
     public MovieEntry(String title, int year) {
         this.title = title;

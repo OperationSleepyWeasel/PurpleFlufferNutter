@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import org.parceler.Parcels;
+
 import sleepyweasel.purplefluffernutter.dummy.DummyContent;
 
 /**
@@ -23,10 +25,14 @@ public class MovieDetailFragment extends Fragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
 
+    public static final String MOVIE_ENTRY_ID = "movie_entry_id";
+
     /**
      * The dummy content this fragment is presenting.
      */
     private DummyContent.DummyItem mItem;
+
+    private MovieEntry entry;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -45,6 +51,9 @@ public class MovieDetailFragment extends Fragment {
             // to load content from a content provider.
             mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
+        if (getArguments().containsKey(MOVIE_ENTRY_ID)) {
+            entry = Parcels.unwrap(getArguments().getParcelable(MOVIE_ENTRY_ID));
+        }
     }
 
     @Override
@@ -55,6 +64,10 @@ public class MovieDetailFragment extends Fragment {
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.movie_detail)).setText(mItem.content);
+        }
+
+        if (entry != null) {
+            ((TextView) rootView.findViewById(R.id.movie_detail)).setText(entry.getTitle());
         }
 
         return rootView;

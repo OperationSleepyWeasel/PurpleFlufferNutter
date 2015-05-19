@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 
+import org.parceler.Parcels;
 
 /**
  * An activity representing a list of Movies. This activity
@@ -65,6 +66,7 @@ public class MovieListActivity extends FragmentActivity
             // fragment transaction.
             Bundle arguments = new Bundle();
             arguments.putString(MovieDetailFragment.ARG_ITEM_ID, id);
+            arguments.putParcelable(MovieDetailFragment.MOVIE_ENTRY_ID, getIntent().getParcelableExtra(MovieDetailFragment.MOVIE_ENTRY_ID));
             MovieDetailFragment fragment = new MovieDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -76,6 +78,7 @@ public class MovieListActivity extends FragmentActivity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, MovieDetailActivity.class);
             detailIntent.putExtra(MovieDetailFragment.ARG_ITEM_ID, id);
+            detailIntent.putExtra(MovieDetailFragment.MOVIE_ENTRY_ID, Parcels.wrap(MovieEntry.class, new MovieEntry("super film", 1992)));
             startActivity(detailIntent);
         }
     }
