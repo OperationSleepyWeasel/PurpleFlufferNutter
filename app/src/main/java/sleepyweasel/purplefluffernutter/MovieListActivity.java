@@ -65,8 +65,7 @@ public class MovieListActivity extends FragmentActivity
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(MovieDetailFragment.ARG_ITEM_ID, id);
-            arguments.putParcelable(MovieDetailFragment.MOVIE_ENTRY_ID, getIntent().getParcelableExtra(MovieDetailFragment.MOVIE_ENTRY_ID));
+            arguments.putParcelable(MovieDetailFragment.MOVIE_ENTRY_ID, Parcels.wrap(MovieEntry.class, new MovieEntry("super film", 1992)));
             MovieDetailFragment fragment = new MovieDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -77,7 +76,6 @@ public class MovieListActivity extends FragmentActivity
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, MovieDetailActivity.class);
-            detailIntent.putExtra(MovieDetailFragment.ARG_ITEM_ID, id);
             detailIntent.putExtra(MovieDetailFragment.MOVIE_ENTRY_ID, Parcels.wrap(MovieEntry.class, new MovieEntry("super film", 1992)));
             startActivity(detailIntent);
         }

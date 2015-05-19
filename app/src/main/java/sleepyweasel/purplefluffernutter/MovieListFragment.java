@@ -13,9 +13,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import sleepyweasel.purplefluffernutter.dummy.DummyContent;
 import sleepyweasel.purplefluffernutter.storage.MovieContentProvider;
-import sleepyweasel.purplefluffernutter.storage.StorageUtils;
 
 /**
  * A list fragment representing a list of Movies. This fragment
@@ -131,7 +129,7 @@ public class MovieListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected("artur");
     }
 
     @Override
