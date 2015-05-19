@@ -2,7 +2,7 @@ package sleepyweasel.purplefluffernutter;
 
 import org.parceler.Parcel;
 
-@Parcel
+@Parcel(Parcel.Serialization.BEAN)
 public class MovieEntry {
     private String title;
     private int year;
@@ -20,8 +20,16 @@ public class MovieEntry {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public int getYear() {
         return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     @Override
