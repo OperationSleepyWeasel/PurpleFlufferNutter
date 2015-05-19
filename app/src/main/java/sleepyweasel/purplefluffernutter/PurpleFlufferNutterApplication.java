@@ -1,9 +1,13 @@
 package sleepyweasel.purplefluffernutter;
 
 import android.app.Application;
+import android.util.Log;
 
 import javax.inject.Inject;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import sleepyweasel.purplefluffernutter.components.DaggerTmdbComponent;
 import sleepyweasel.purplefluffernutter.components.TmdbComponent;
 import sleepyweasel.purplefluffernutter.modules.TmdbModule;
@@ -26,6 +30,8 @@ public class PurpleFlufferNutterApplication extends Application {
             .build();
 
         getTmdbComponent().inject(this);
+
+        fetchConfiguration();
     }
 
     public TmdbComponent getTmdbComponent() {
@@ -33,9 +39,20 @@ public class PurpleFlufferNutterApplication extends Application {
     }
 
     public Configuration getConfiguration() {
-        if (configuration == null) {
-            configuration = tmdb.getConfiguration();
-        }
         return configuration;
+    }
+
+    private void fetchConfiguration() {
+        tmdb.getConfiguration(new Callback<Configuration>() {
+            @Override
+            public void success(Configuration fetchedConfiguration, Response response) {
+                configuration = fetchedConfiguration;
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e("Error : ", "Failed to fetch configuration.");
+            }
+        });
     }
 }
