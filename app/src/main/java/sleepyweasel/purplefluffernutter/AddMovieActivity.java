@@ -1,7 +1,6 @@
 package sleepyweasel.purplefluffernutter;
 
 import android.content.Intent;
-import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,13 +39,7 @@ public class AddMovieActivity extends ActionBarActivity {
         setContentView(R.layout.activity_add_movie);
         ButterKnife.inject(this);
         ((PurpleFlufferNutterApplication) getApplication()).getTmdbComponent().inject(this);
-
-        //FIXME: temporary solution use async task:
-        //http://stackoverflow.com/questions/19266553/android-caused-by-android-os-networkonmainthreadexception
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
