@@ -3,7 +3,17 @@ package sleepyweasel.purplefluffernutter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 import org.parceler.Parcels;
 
@@ -32,10 +42,25 @@ public class MovieListActivity extends FragmentActivity
      */
     private boolean mTwoPane;
 
+    @InjectView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
+    @InjectView(R.id.left_drawer)
+    ListView drawerList;
+
+    private ActionBarDrawerToggle drawerToggle;
+    private String[] drawerItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_list);
+        setContentView(R.layout.navigation_drawer);
+        ButterKnife.inject(this);
+
+        drawerItems = new String[]{"Add movie", "Summary", "Settings"};
+        drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, drawerItems));
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
 
         if (findViewById(R.id.movie_detail_container) != null) {
             // The detail container view will be present only in the
@@ -50,6 +75,26 @@ public class MovieListActivity extends FragmentActivity
                     .findFragmentById(R.id.movie_list))
                     .setActivateOnItemClick(true);
         }
+
+        drawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                drawerLayout,         /* DrawerLayout object */
+                R.string.drawer_open,  /* "open drawer" description */
+                R.string.drawer_close  /* "close drawer" description */
+        ) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+//                getActionBar().setTitle("Title");
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+//                getActionBar().setTitle("Title");
+            }
+        };
+
+        drawerLayout.setDrawerListener(drawerToggle);
 
         // TODO: If exposing deep links into your app, handle intents here.
     }
@@ -99,9 +144,26 @@ public class MovieListActivity extends FragmentActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private void selectItem(int position) {
+        Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show();
+
+        // Highlight the selected item, update the title, and close the drawer
+        drawerList.setItemChecked(position, true);
+        setTitle(drawerItems[position]);
+        drawerLayout.closeDrawer(drawerList);
+    }
+
     @Override
     public void onBackPressed() {
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
     }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
 }
