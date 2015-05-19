@@ -6,6 +6,9 @@ import android.widget.EditText;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.parceler.Parcels;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -20,15 +23,20 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import retrofit.Callback;
+import retrofit.client.Header;
+import retrofit.client.Response;
+import retrofit.mime.TypedInput;
 import sleepyweasel.purplefluffernutter.rest.tmdb.Tmdb;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.SearchResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -57,7 +65,15 @@ public class AddMovieActivityTest {
         //not using mock here because of @Parcel generation (it would be nice to find workaround)
         searchResult = new SearchResult();
         searchResult.setResults(Collections.<Result>emptyList());
-        when(activity.tmdb.searchMovie(anyString())).thenReturn(searchResult);
+        //not using mock because Response class is final...
+        final Response response = new Response("url", 200, "ok", Collections.<Header>emptyList(), mock(TypedInput.class));
+        doAnswer(new Answer<Object>() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                ((Callback<SearchResult>) invocation.getArguments()[1]).success(searchResult, response);
+                return null;
+            }
+        }).when(activity.tmdb).searchMovie(anyString(), Matchers.<Callback<SearchResult>>any());
     }
 
     @Test
@@ -66,7 +82,7 @@ public class AddMovieActivityTest {
 
         button.performClick();
 
-        verify(activity.tmdb).searchMovie(QUERY);
+        verify(activity.tmdb).searchMovie(eq(QUERY), Matchers.<Callback<SearchResult>>any());
     }
 
     @Test

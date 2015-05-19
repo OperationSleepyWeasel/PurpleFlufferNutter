@@ -17,6 +17,9 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.Result;
 import sleepyweasel.purplefluffernutter.rest.tmdb.domain.SearchResult;
 import sleepyweasel.purplefluffernutter.rest.tmdb.Tmdb;
@@ -85,13 +88,21 @@ public class AddMovieActivity extends ActionBarActivity {
     public void findOnWeb() {
         Log.d("Debug : ", "findOnWeb");
 
-        SearchResult searchResult = tmdb.searchMovie(title.getText().toString());
+        tmdb.searchMovie(title.getText().toString(), new Callback<SearchResult>() {
+            @Override
+            public void success(SearchResult searchResult, Response response) {
+                printSearchResult(searchResult);
 
-        printSearchResult(searchResult);
+                Intent i = new Intent(getApplicationContext(), MoviesFromWebActivity.class);
+                i.putExtra(AddMovieActivity.FOUND_MOVIES_ID, Parcels.wrap(searchResult));
+                startActivity(i);
+            }
 
-        Intent i = new Intent(getApplicationContext(), MoviesFromWebActivity.class);
-        i.putExtra(AddMovieActivity.FOUND_MOVIES_ID, Parcels.wrap(searchResult));
-        startActivity(i);
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e("Error : ", "Failed to fetch movies list.");
+            }
+        });
     }
 
     private static void printSearchResult(SearchResult searchResult) {
