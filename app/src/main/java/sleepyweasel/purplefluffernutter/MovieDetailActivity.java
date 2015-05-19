@@ -69,7 +69,7 @@ public class MovieDetailActivity extends ActionBarActivity {
             //
 //            NavUtils.navigateUpTo(this, new Intent(this, MovieListActivity.class));
 //            return true;
-            Intent i = new Intent(getApplicationContext(), AddMovieActivity.class);
+            Intent i = new Intent(getApplicationContext(), MovieListActivity.class);
             startActivity(i);
             return true;
         }
