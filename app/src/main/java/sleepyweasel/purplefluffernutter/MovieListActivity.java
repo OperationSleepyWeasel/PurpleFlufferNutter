@@ -171,11 +171,6 @@ public class MovieListActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        drawerLayout.openDrawer(drawerList);
-    }
-
     private void selectItem(int position) {
         // Highlight the selected item, update the title, and close the drawer
         drawerList.setItemChecked(position, true);
