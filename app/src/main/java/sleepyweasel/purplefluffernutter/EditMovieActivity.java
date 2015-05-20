@@ -78,6 +78,8 @@ public class EditMovieActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @OnClick(R.id.button_cancel)
+    @SuppressWarnings("unused")
     public void goToList(View v) {
         Intent i = new Intent(getApplicationContext(), MovieListActivity.class);
         startActivity(i);
@@ -98,7 +100,11 @@ public class EditMovieActivity extends ActionBarActivity {
     }
 
     public void goToDetail() {
+        String movieTitle = titleText.getText().toString();
+        int movieYear = Integer.parseInt(yearValue.getText().toString());
+        MovieEntry entry = new MovieEntry(movieTitle, movieYear);
         Intent i = new Intent(getApplicationContext(), MovieDetailActivity.class);
+        i.putExtra(MovieDetailFragment.MOVIE_ENTRY_ID, Parcels.wrap(MovieEntry.class, entry));
         startActivity(i);
     }
 }
