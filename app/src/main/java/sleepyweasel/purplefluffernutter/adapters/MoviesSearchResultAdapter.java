@@ -49,7 +49,7 @@ public class MoviesSearchResultAdapter extends ArrayAdapter<Result> {
         holder.releaseDateView.setText(result.getReleaseDate() != null ? result.getReleaseDate().toString() : "?");
         if (configuration != null) {
             String url = new ImageUrlBuilder().buildImageUrlFor(result, configuration);
-            Picasso.with(getContext()).load(url).into(holder.posterImage);
+            Picasso.with(getContext()).load(url).fit().centerCrop().into(holder.posterImage);
         }
 
         return view;
