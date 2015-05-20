@@ -26,8 +26,6 @@ public class EditMovieActivity extends ActionBarActivity {
 
     @InjectView(R.id.movie_year_value) TextView yearValue;
 
-    private MovieEntry entry;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +102,7 @@ public class EditMovieActivity extends ActionBarActivity {
     public void goToDetail() {
         String movieTitle = titleText.getText().toString();
         int movieYear = Integer.parseInt(yearValue.getText().toString());
-        entry = new MovieEntry(movieTitle, movieYear);
+        MovieEntry entry = new MovieEntry(movieTitle, movieYear);
         Intent i = new Intent(getApplicationContext(), MovieDetailActivity.class);
         i.putExtra(MovieDetailFragment.MOVIE_ENTRY_ID, Parcels.wrap(MovieEntry.class, entry));
         startActivity(i);
