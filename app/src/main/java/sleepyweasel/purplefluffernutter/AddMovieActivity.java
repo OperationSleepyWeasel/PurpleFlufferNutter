@@ -76,7 +76,7 @@ public class AddMovieActivity extends ActionBarActivity {
     public void goToEdit() {
         String titleTextValue = title.getText().toString();
         if (titleTextValue.isEmpty()) {
-            Toast.makeText(this, "Title cannot be empty!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Title cannot be empty!", Toast.LENGTH_SHORT).show();
         }
         else {
             Intent i = new Intent(getApplicationContext(), EditMovieActivity.class);
@@ -89,8 +89,14 @@ public class AddMovieActivity extends ActionBarActivity {
     @SuppressWarnings("unused")
     public void findOnWeb() {
         Log.d("Debug : ", "findOnWeb");
+        String titleTextValue = title.getText().toString();
 
-        tmdb.searchMovie(title.getText().toString(), new Callback<SearchResult>() {
+        if (titleTextValue.isEmpty()) {
+            Toast.makeText(this, "Title cannot be empty!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        tmdb.searchMovie(titleTextValue, new Callback<SearchResult>() {
             @Override
             public void success(SearchResult searchResult, Response response) {
                 printSearchResult(searchResult);
