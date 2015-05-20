@@ -29,7 +29,7 @@ public class MoviesFromWebActivity extends ListActivity {
 
         searchResult = Parcels.unwrap(this.getIntent().getExtras().getParcelable(AddMovieActivity.FOUND_MOVIES_ID));
         Configuration configuration = ((PurpleFlufferNutterApplication) getApplication()).getConfiguration();
-        moviesSearchResultAdapter = new MoviesSearchResultAdapter(this, R.layout.movie_search_result, searchResult.getResults(), configuration);
+        moviesSearchResultAdapter = new MoviesSearchResultAdapter(this, R.layout.search_result_item, searchResult.getResults(), configuration);
         setListAdapter(moviesSearchResultAdapter);
     }
 

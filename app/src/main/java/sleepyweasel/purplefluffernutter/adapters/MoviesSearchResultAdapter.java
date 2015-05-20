@@ -38,7 +38,7 @@ public class MoviesSearchResultAdapter extends ArrayAdapter<Result> {
             holder = (ViewHolder) view.getTag();
         } else {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.movie_search_result, null);
+            view = inflater.inflate(R.layout.search_result_item, null);
             holder = new ViewHolder(view);
             view.setTag(holder);
         }
@@ -49,7 +49,7 @@ public class MoviesSearchResultAdapter extends ArrayAdapter<Result> {
         holder.releaseDateView.setText(result.getReleaseDate() != null ? result.getReleaseDate().toString() : "?");
         if (configuration != null) {
             String url = new ImageUrlBuilder().buildImageUrlFor(result, configuration);
-            Picasso.with(getContext()).load(url).into(holder.posterImage);
+            Picasso.with(getContext()).load(url).fit().centerCrop().into(holder.posterImage);
         }
 
         return view;

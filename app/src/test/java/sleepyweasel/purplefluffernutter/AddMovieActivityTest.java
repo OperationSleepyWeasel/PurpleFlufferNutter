@@ -89,6 +89,7 @@ public class AddMovieActivityTest {
     public void shouldPassSearchMoviesResultsToNextActivity() {
         List<Result> results = Arrays.asList(new Result(TITLE, RELEASE_DATE));
         searchResult.setResults(results);
+        title.setText(QUERY);
 
         button.performClick();
 

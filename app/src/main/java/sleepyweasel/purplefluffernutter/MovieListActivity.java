@@ -65,7 +65,7 @@ public class MovieListActivity extends ActionBarActivity
                 getString(R.string.nav_item_name_settings)
         };
 
-        drawerList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, drawerItems));
+        drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, drawerItems));
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
@@ -104,8 +104,15 @@ public class MovieListActivity extends ActionBarActivity
         drawerLayout.setDrawerListener(drawerToggle);
 
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         // TODO: If exposing deep links into your app, handle intents here.
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
     }
 
     @Override
@@ -146,6 +153,10 @@ public class MovieListActivity extends ActionBarActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         if (id == R.id.action_add_movie) {
             Intent i = new Intent(getApplicationContext(), AddMovieActivity.class);
             startActivity(i);
@@ -158,11 +169,6 @@ public class MovieListActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        drawerLayout.openDrawer(drawerList);
     }
 
     private void selectItem(int position) {
