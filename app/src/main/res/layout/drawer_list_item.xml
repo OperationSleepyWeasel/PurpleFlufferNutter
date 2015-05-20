@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:text="New Text"
-android:id="@+id/textView"/>
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:gravity="center_vertical"
+    android:textColor="@android:color/primary_text_dark"
+    android:background="?android:attr/activatedBackgroundIndicator"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:paddingLeft="15dp"
+    android:id="@+id/textView" />
+    <!--android:text="New Text"-->
+    <!--android:paddingStart="?android:attr/listPreferredItemPaddingStart"-->
+    <!--android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"-->

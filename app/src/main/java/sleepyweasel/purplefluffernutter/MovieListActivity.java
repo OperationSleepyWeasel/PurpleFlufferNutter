@@ -65,7 +65,7 @@ public class MovieListActivity extends ActionBarActivity
                 getString(R.string.nav_item_name_settings)
         };
 
-        drawerList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, drawerItems));
+        drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, drawerItems));
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
