@@ -38,7 +38,7 @@ public class MoviesSearchResultAdapter extends ArrayAdapter<Result> {
             holder = (ViewHolder) view.getTag();
         } else {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.movie_search_result, null);
+            view = inflater.inflate(R.layout.search_result_item, null);
             holder = new ViewHolder(view);
             view.setTag(holder);
         }

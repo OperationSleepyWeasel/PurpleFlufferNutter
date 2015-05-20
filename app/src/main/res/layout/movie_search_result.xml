@@ -10,6 +10,8 @@
     android:layout_height="fill_parent"
     android:layout_alignParentBottom="true"
     android:layout_alignParentTop="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
     android:layout_marginRight="6dip"
     android:contentDescription="movie poster" />
 
@@ -18,22 +20,26 @@
     android:layout_width="fill_parent"
     android:layout_height="26dip"
     android:layout_alignParentBottom="true"
-    android:layout_alignParentRight="true"
-    android:layout_toRightOf="@id/moviePoster"
+    android:layout_alignParentLeft="true"
+    android:layout_toLeftOf="@id/moviePoster"
     android:ellipsize="marquee"
     android:singleLine="true"
+    android:text="Movie description"
     android:textSize="12sp" />
 
 <TextView
     android:id="@+id/movieResultTitle"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="74dip"
     android:layout_above="@id/movieResultReleaseDate"
-    android:layout_alignParentRight="true"
+    android:layout_alignParentLeft="true"
     android:layout_alignParentTop="true"
-    android:layout_alignWithParentIfMissing="true"
-    android:layout_toRightOf="@id/moviePoster"
-    android:gravity="center_vertical"
+    android:ellipsize="marquee"
+    android:singleLine="true"
+    android:text="Movie title"
     android:textSize="16sp" />
+    <!--android:layout_alignWithParentIfMissing="true"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:layout_toLeftOf="@id/moviePoster"-->
 
 </RelativeLayout>
