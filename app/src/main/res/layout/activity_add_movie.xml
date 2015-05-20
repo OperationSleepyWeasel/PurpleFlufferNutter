@@ -30,8 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="Add manually"
                 android:id="@+id/manualButton"
-                android:layout_weight="1"
-                android:onClick="goToEdit" />
+                android:layout_weight="1" />
 
             <Button
                 android:layout_width="0dp"

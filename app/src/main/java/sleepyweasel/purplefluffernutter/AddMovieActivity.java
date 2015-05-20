@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.parceler.Parcels;
 
@@ -70,18 +71,32 @@ public class AddMovieActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void goToEdit(View v) {
-        Intent i = new Intent(getApplicationContext(), EditMovieActivity.class);
-        i.putExtra(AddMovieActivity.MOVIE_TITLE_ID, ((EditText) findViewById(R.id.titleTextField)).getText().toString());
-        startActivity(i);
+    @OnClick(R.id.manualButton)
+    @SuppressWarnings("unused")
+    public void goToEdit() {
+        String titleTextValue = title.getText().toString();
+        if (titleTextValue.isEmpty()) {
+            Toast.makeText(this, "Title cannot be empty!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent i = new Intent(getApplicationContext(), EditMovieActivity.class);
+            i.putExtra(AddMovieActivity.MOVIE_TITLE_ID, title.getText().toString());
+            startActivity(i);
+        }
     }
 
     @OnClick(R.id.webButton)
     @SuppressWarnings("unused")
     public void findOnWeb() {
         Log.d("Debug : ", "findOnWeb");
+        String titleTextValue = title.getText().toString();
 
-        tmdb.searchMovie(title.getText().toString(), new Callback<SearchResult>() {
+        if (titleTextValue.isEmpty()) {
+            Toast.makeText(this, "Title cannot be empty!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        tmdb.searchMovie(titleTextValue, new Callback<SearchResult>() {
             @Override
             public void success(SearchResult searchResult, Response response) {
                 printSearchResult(searchResult);
