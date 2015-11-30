@@ -1,7 +1,11 @@
 package sleepyweasel.purplefluffernutter;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.ListAdapter;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,11 +29,46 @@ public class MovieListTest {
     private static final String MOVIE_TITLE = "Movie title";
     private static final int MOVIE_YEAR = 1994;
 
+    private static class DatabaseHelper extends SQLiteOpenHelper {
+
+        private static final int DATABASE_VERSION = 1;
+        private static final String DATABASE_NAME = "movie_database.db";
+        private static final String ID_COLUMN = "id INTEGER PRIMARY KEY AUTOINCREMENT";
+        private static final String TITLE_COLUMN = " title TEXT NOT NULL";
+        private static final String YEAR_COLUMN = " year INTEGER NOT NULL";
+
+        public DatabaseHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            String CREATE_DB_TABLE = " CREATE TABLE MOVIE_ENTRY" +
+                    " ( " + ID_COLUMN + ", " + TITLE_COLUMN + ", " + YEAR_COLUMN + ");";
+            db.execSQL(CREATE_DB_TABLE);
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        }
+    }
+
+    private DatabaseHelper databaseHelper;
+    private SQLiteDatabase database;
+
     @Before
     public void setUp() {
-        ShadowContentResolver.registerProvider(MovieContentProvider.PROVIDER_NAME, (MovieContentProvider) storage);
-        ((MovieContentProvider) storage).onCreate();
+        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+        databaseHelper = new DatabaseHelper(activity.getBaseContext());
+        database = databaseHelper.getWritableDatabase();
+//        ShadowContentResolver.registerProvider(MovieContentProvider.PROVIDER_NAME, (MovieContentProvider) storage);
+//        ((MovieContentProvider) storage).onCreate();
         storage.clear();
+    }
+
+    @After
+    public void tearDown() {
+        databaseHelper.close();
     }
 
     private ListAdapter getListAdapter() {

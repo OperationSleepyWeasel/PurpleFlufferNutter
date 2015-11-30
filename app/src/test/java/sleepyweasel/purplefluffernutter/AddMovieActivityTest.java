@@ -1,20 +1,28 @@
 package sleepyweasel.purplefluffernutter;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Matchers;
+import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import org.parceler.Parcels;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowIntent;
+import org.robolectric.shadows.ShadowSQLiteConnection;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -52,10 +60,41 @@ public class AddMovieActivityTest {
     private AddMovieActivity activity;
     private SearchResult searchResult;
 
+    private static class DatabaseHelper extends SQLiteOpenHelper {
+
+        private static final int DATABASE_VERSION = 1;
+        private static final String DATABASE_NAME = "movie_database.db";
+        private static final String ID_COLUMN = "id INTEGER PRIMARY KEY AUTOINCREMENT";
+        private static final String TITLE_COLUMN = " title TEXT NOT NULL";
+        private static final String YEAR_COLUMN = " year INTEGER NOT NULL";
+
+        public DatabaseHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            String CREATE_DB_TABLE = " CREATE TABLE MOVIE_ENTRY" +
+                    " ( " + ID_COLUMN + ", " + TITLE_COLUMN + ", " + YEAR_COLUMN + ");";
+            db.execSQL(CREATE_DB_TABLE);
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        }
+    }
+
+    private DatabaseHelper databaseHelper;
+    private SQLiteDatabase database;
+
     @Before
     public void setUp() {
+        MainActivity mainActivity = Robolectric.setupActivity(MainActivity.class);
+        databaseHelper = new DatabaseHelper(mainActivity.getBaseContext());
+        database = databaseHelper.getWritableDatabase();
         activity = Robolectric.setupActivity(AddMovieActivity.class);
         ButterKnife.inject(this, activity);
+//        ShadowSQLiteConnection.nativeOpen("sleepyweasel.purplefluffernutter.movie_database.db", 0, "label",true, true);
 
         //TODO: try one of below methods (they seemed not working for me)
         //http://stackoverflow.com/questions/26939340/how-do-you-override-a-module-dependency-in-a-unit-test-with-dagger-2-0
@@ -74,6 +113,11 @@ public class AddMovieActivityTest {
                 return null;
             }
         }).when(activity.tmdb).searchMovie(anyString(), Matchers.<Callback<SearchResult>>any());
+    }
+
+    @After
+    public void tearDown() {
+        databaseHelper.close();
     }
 
     @Test
